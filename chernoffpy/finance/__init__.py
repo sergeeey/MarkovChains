@@ -25,18 +25,14 @@ from .european import EuropeanPricer
 from .greeks import compute_greeks
 
 __all__ = [
+    # Public API
     "MarketParams",
     "GridConfig",
-    "ValidationCertificate",
-    "PricingResult",
-    "GreeksResult",
     "EuropeanPricer",
     "compute_greeks",
-    "compute_transform_params",
-    "make_grid",
-    "make_taper",
-    "bs_to_heat_initial",
-    "heat_to_bs_price",
-    "extract_price_at_spot",
     "bs_exact_price",
+    # Result types
+    "PricingResult",
+    "ValidationCertificate",
+    "GreeksResult",
 ]

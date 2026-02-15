@@ -114,3 +114,15 @@ class EuropeanPricer:
             market=market,
             certificate=certificate,
         )
+
+    def greeks(
+        self,
+        market: MarketParams,
+        n_steps: int = 50,
+        option_type: str = "call",
+        **kwargs,
+    ) -> "GreeksResult":
+        """Convenience method for computing Greeks. See compute_greeks for full signature."""
+        from .greeks import compute_greeks
+
+        return compute_greeks(self, market, n_steps, option_type, **kwargs)

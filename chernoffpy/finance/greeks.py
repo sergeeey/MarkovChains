@@ -4,16 +4,22 @@ Delta, Gamma: extracted from the spatial solution u(x, tau) without repricing.
 Vega, Theta, Rho: central finite differences with 2 repricings each.
 """
 
+from __future__ import annotations
+
 import dataclasses
+from typing import TYPE_CHECKING
 
 import numpy as np
 
 from .validation import GreeksResult, MarketParams
 from .transforms import compute_transform_params, _MAX_EXP
 
+if TYPE_CHECKING:
+    from .european import EuropeanPricer
+
 
 def compute_greeks(
-    pricer,
+    pricer: EuropeanPricer,
     market: MarketParams,
     n_steps: int = 50,
     option_type: str = "call",
