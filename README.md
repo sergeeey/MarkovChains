@@ -48,6 +48,29 @@ If `C(t)` matches the first `k` derivatives of `e^{tA}` at `t = 0`, then the con
 | `CrankNicolson` | 2 | Fourier multiplier (1−tξ²/2)/(1+tξ²/2) |
 | `PadeChernoff(m,n)` | m+n | General Padé [m/n] approximant of e^z |
 
+## Finance: European Option Pricing
+
+ChernoffPy includes a finance module that prices European options by transforming the Black-Scholes PDE into a heat equation (Wilmott substitution) and solving it with Chernoff approximations.
+
+```python
+from chernoffpy import CrankNicolson
+from chernoffpy.finance import EuropeanPricer, MarketParams, compute_greeks
+
+market = MarketParams(S=100, K=100, T=1.0, r=0.05, sigma=0.20)
+pricer = EuropeanPricer(CrankNicolson())
+
+result = pricer.price(market, n_steps=50, option_type="call")
+print(f"Price: {result.price:.4f} (BS exact: {result.certificate.bs_price:.4f})")
+print(f"Error: {result.certificate.chernoff_err:.2e}")
+
+greeks = compute_greeks(pricer, market, n_steps=50)
+print(f"Delta={greeks.delta:.4f}, Gamma={greeks.gamma:.6f}, Vega={greeks.vega:.4f}")
+```
+
+Each price includes a `ValidationCertificate` decomposing the total error into Chernoff approximation error and domain truncation error.
+
+**Volatility range:** The method works best for σ >= 0.05. For σ >= 0.10 the Chernoff approximation error is typically < 1% with default grid settings. Very low volatility (σ < 0.05) is supported but accuracy may degrade due to the large exponents in the Wilmott substitution.
+
 ## Running Tests
 
 ```bash

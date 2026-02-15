@@ -21,7 +21,7 @@ from chernoffpy.functions import (
     PhysicalS,
 )
 from chernoffpy.semigroups import HeatSemigroup
-from chernoffpy.analysis import convergence_rate, convergence_table
+from chernoffpy.analysis import compute_errors, convergence_rate, convergence_table
 
 __version__ = "0.1.0"
 __author__ = "Built on the theory of I.D. Remizov, O.E. Galkin et al."
