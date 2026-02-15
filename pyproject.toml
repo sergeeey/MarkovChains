@@ -38,5 +38,8 @@ examples = [
 testpaths = ["tests"]
 addopts = "-ra"
 
+[tool.hatch.build.targets.sdist]
+exclude = ["*.png", "original_code.py", ".github/"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["chernoffpy"]
