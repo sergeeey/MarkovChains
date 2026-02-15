@@ -1,5 +1,7 @@
 # ChernoffPy
 
+[![Tests](https://github.com/sergeeey/MarkovChains/actions/workflows/tests.yml/badge.svg)](https://github.com/sergeeey/MarkovChains/actions/workflows/tests.yml)
+
 First open-source Python library for **Chernoff approximations of operator semigroups** with automatic convergence rate analysis. Implements classical and Padé-based Chernoff functions for the heat equation, with tools to verify the Galkin–Remizov convergence rate theorem numerically.
 
 ## Installation
