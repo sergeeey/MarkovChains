@@ -1,9 +1,4 @@
-"""European option pricing using Chernoff approximation of the heat semigroup.
-
-Converts the Black-Scholes PDE to a heat equation via Wilmott substitution,
-then solves it using ChernoffPy's operator approximation machinery.
-Each price comes with a ValidationCertificate decomposing the error.
-"""
+"""European and exotic option pricing via Chernoff approximations."""
 
 from .validation import (
     BarrierParams,
@@ -26,19 +21,35 @@ from .transforms import (
 from .european import EuropeanPricer
 from .greeks import compute_greeks
 from .barrier import BarrierPricer
+from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
+from .implied_vol import implied_volatility
+from .reporting import (
+    barrier_result_to_report,
+    certificate_to_report,
+    pricing_result_to_report,
+)
 
 __all__ = [
-    # Public API
+    # Existing public API
     "MarketParams",
     "GridConfig",
     "EuropeanPricer",
     "BarrierPricer",
     "compute_greeks",
     "bs_exact_price",
-    # Result types
     "PricingResult",
     "ValidationCertificate",
     "GreeksResult",
     "BarrierParams",
     "BarrierPricingResult",
+    # Phase 3
+    "LocalVolPricer",
+    "LocalVolParams",
+    "flat_vol",
+    "linear_skew",
+    "time_dependent_vol",
+    "implied_volatility",
+    "certificate_to_report",
+    "pricing_result_to_report",
+    "barrier_result_to_report",
 ]
