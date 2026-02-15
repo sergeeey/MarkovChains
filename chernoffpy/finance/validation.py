@@ -1,8 +1,17 @@
-"""Data classes for European option pricing with accuracy certificates."""
+"""Data classes for European and barrier option pricing."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
+
+
+BarrierType = Literal[
+    "down_and_out",
+    "down_and_in",
+    "up_and_out",
+    "up_and_in",
+]
 
 
 @dataclass(frozen=True)
@@ -47,6 +56,21 @@ class GridConfig:
             )
 
 
+@dataclass(frozen=True)
+class BarrierParams:
+    """Barrier option parameters."""
+
+    barrier: float
+    barrier_type: BarrierType
+    rebate: float = 0.0
+
+    def __post_init__(self):
+        if self.barrier <= 0:
+            raise ValueError(f"barrier must be > 0, got {self.barrier}")
+        if self.rebate < 0:
+            raise ValueError(f"rebate must be >= 0, got {self.rebate}")
+
+
 @dataclass
 class ValidationCertificate:
     """Accuracy certificate decomposing total error into components.
@@ -66,7 +90,7 @@ class ValidationCertificate:
 
 @dataclass
 class PricingResult:
-    """Complete result of option pricing."""
+    """Complete result of vanilla option pricing."""
 
     price: float
     method_name: str
@@ -76,11 +100,26 @@ class PricingResult:
 
 
 @dataclass
+class BarrierPricingResult:
+    """Complete result of barrier option pricing."""
+
+    price: float
+    vanilla_price: float
+    knockout_price: float
+    barrier_type: BarrierType
+    method_name: str
+    n_steps: int
+    market: MarketParams
+    barrier_params: BarrierParams
+    certificate: ValidationCertificate | None = None
+
+
+@dataclass
 class GreeksResult:
     """Option Greeks (sensitivities)."""
 
     delta: float  # dV/dS
-    gamma: float  # d²V/dS²
-    vega: float   # dV/dσ
+    gamma: float  # d2V/dS2
+    vega: float   # dV/dsigma
     theta: float  # dV/dt (= -dV/dT, typically negative for long options)
     rho: float    # dV/dr
