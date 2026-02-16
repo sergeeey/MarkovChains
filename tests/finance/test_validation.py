@@ -152,7 +152,8 @@ class TestOverflowProtection:
         assert np.isfinite(result.price), f"Non-finite price: {result.price}"
         assert result.price >= 0, f"Negative price: {result.price}"
         bs = bs_exact_price(market, "call")
-        # For low vol, BS price is dominated by intrinsic value + small time value
+        # Intentional loose tolerance for low-vol edge case: price is tiny and
+        # highly sensitive to truncation/taper effects on finite domains.
         assert result.price == pytest.approx(bs, rel=0.20, abs=1.0)
 
 

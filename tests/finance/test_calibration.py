@@ -162,8 +162,8 @@ class TestModelFitCalibration:
             maxiter=120,
         )
 
-        # model_fit uses Chernoff numerical pricing, so discretization error
-        # prevents exact recovery. RMSE ~0.065 at n_steps=35 is expected.
+        # model_fit uses LocalVolPricer (numerical PDE solve), so with n_steps=35
+        # exact recovery is not expected. This 0.10 threshold is intentional.
         assert model_result.rmse < 0.10
 
     def test_model_fit_requires_chernoff(self):

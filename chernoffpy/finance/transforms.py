@@ -77,7 +77,9 @@ def bs_to_heat_initial(
     # Clip exponent to prevent overflow for low volatility (large |alpha|)
     raw_exponent = -alpha * x_grid
     exponent = np.clip(raw_exponent, -_MAX_EXP, _MAX_EXP)
-    u0 = np.exp(exponent) * payoff
+    with np.errstate(over="ignore", invalid="ignore"):
+        u0 = np.exp(exponent) * payoff
+    u0 = np.nan_to_num(u0, nan=0.0, posinf=0.0, neginf=0.0)
 
     # Overflow taper: smoothly zero IC where exp(-alpha*x) would be too large.
     # Without this, huge IC values contaminate FFT for low volatility (large |alpha|).
@@ -94,7 +96,9 @@ def bs_to_heat_initial(
             1.0,
         )
         overflow_taper[overflow_mask] = 0.5 * (1 + np.cos(np.pi * t))
-        u0 = np.where(overflow_taper > 0, u0 * overflow_taper, 0.0)
+        with np.errstate(over="ignore", invalid="ignore"):
+            u0 = np.where(overflow_taper > 0, u0 * overflow_taper, 0.0)
+        u0 = np.nan_to_num(u0, nan=0.0, posinf=0.0, neginf=0.0)
 
     taper = make_taper(x_grid, config)
     return np.where(taper > 0, u0 * taper, 0.0)
@@ -150,3 +154,4 @@ def bs_exact_price(market: MarketParams, option_type: str = "call") -> float:
         )
     else:
         raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
+

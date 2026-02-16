@@ -8,6 +8,8 @@ from __future__ import annotations
 import numpy as np
 from scipy.stats import norm
 
+# NumPy 1.x / 2.x compatibility
+_trapz = getattr(np, 'trapezoid', None) or np.trapz
 
 def _bs_price(S: float, K: float, r: float, sigma: float, T: float, option_type: str) -> float:
     sqrt_t = np.sqrt(T)
@@ -93,9 +95,11 @@ def double_barrier_analytical(
     for n in range(1, n_terms + 1):
         kn = n * np.pi / L
         basis = np.sin(kn * (x_quad - xL))
-        A_n = 2.0 / L * np.trapz(u0 * basis, x_quad)
+        A_n = 2.0 / L * _trapz(u0 * basis, x_quad)
         w_val += A_n * np.sin(kn * (x0 - xL)) * np.exp(-kn ** 2 * tau)
 
     price = K * np.exp(alpha * x0 + beta * tau - r * T) * w_val
     return float(max(0.0, price))
+
+
 

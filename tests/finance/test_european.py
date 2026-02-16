@@ -151,6 +151,7 @@ class TestSpecialCases:
         pricer = EuropeanPricer(CrankNicolson(), default_grid)
         result = pricer.price(high_vol_market, N_STEPS, "call")
         bs = bs_exact_price(high_vol_market, "call")
+        # High-volatility edge case: tolerance is intentionally wider than ATM tests.
         assert result.price == pytest.approx(bs, rel=0.03, abs=0.5)
 
     def test_short_expiry(self, short_expiry_market, default_grid):
