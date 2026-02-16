@@ -49,6 +49,10 @@ class GridConfig:
     N: int = 2048            # Number of grid points (power of 2 recommended for FFT)
     L: float = 10.0          # Domain half-width: grid spans [-L, L)
     taper_width: float = 2.0 # Width of cosine taper zone at each boundary
+    # Phase 8 (optional, backward-compatible)
+    snap_points: tuple[float, ...] = ()
+    center: float = 0.0
+    stretch: float = 0.0
 
     def __post_init__(self):
         if self.N < 64:
@@ -59,6 +63,12 @@ class GridConfig:
             raise ValueError(
                 f"Taper width must be in (0, L={self.L}), got {self.taper_width}"
             )
+        if not isinstance(self.snap_points, tuple):
+            raise ValueError("snap_points must be a tuple")
+        if len(self.snap_points) > 2:
+            raise ValueError("snap_points supports up to 2 points")
+        if self.stretch < 0:
+            raise ValueError(f"stretch must be >= 0, got {self.stretch}")
 
 
 @dataclass(frozen=True)

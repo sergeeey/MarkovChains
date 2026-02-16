@@ -33,7 +33,15 @@ def compute_transform_params(market: MarketParams) -> tuple[float, float, float,
 
 
 def make_grid(config: GridConfig) -> np.ndarray:
-    """Create uniform spatial grid on [-L, L) with N points (endpoint excluded for FFT)."""
+    """Build spatial grid with optional snapping/stretching extensions."""
+    if config.snap_points:
+        from .adaptive_grid import make_snapped_grid
+
+        return make_snapped_grid(config)
+    if config.stretch > 0:
+        from .adaptive_grid import make_stretched_grid
+
+        return make_stretched_grid(config)
     return np.linspace(-config.L, config.L, config.N, endpoint=False)
 
 

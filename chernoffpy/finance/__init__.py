@@ -34,6 +34,12 @@ from .calibration import VolCalibrator
 from .american_analytical import american_baw, american_binomial
 from .heston_params import HestonGridConfig, HestonParams, HestonPricingResult
 from .heston_analytical import heston_price
+from .adaptive_grid import (
+    compute_grid_quality,
+    make_stretched_config,
+    snap_grid_to_barrier,
+    snap_grid_to_double_barrier,
+)
 from .reporting import (
     barrier_result_to_report,
     certificate_to_report,
@@ -63,6 +69,10 @@ __all__ = [
     "HestonGridConfig",
     "HestonPricingResult",
     "heston_price",
+    "snap_grid_to_barrier",
+    "snap_grid_to_double_barrier",
+    "make_stretched_config",
+    "compute_grid_quality",
     # Phase 3+
     "LocalVolPricer",
     "LocalVolParams",
