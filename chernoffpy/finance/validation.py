@@ -128,6 +128,9 @@ class ValidationCertificate:
     rel_error: float       # |computed - bs_exact| / bs_exact
     chernoff_error: float  # |chernoff - fft_exact|
     domain_error: float    # |fft_exact - bs_exact|
+    certified_bound: float | None = None  # a priori certified upper bound
+    certified_order: int | None = None    # theoretical effective order
+    is_certified: bool = False            # whether certified bound is available
 
 
 @dataclass

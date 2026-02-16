@@ -29,6 +29,11 @@ from .barrier_dst import BarrierDSTPricer, DoubleBarrierDSTPricer
 from .american import AmericanPricer
 from .heston import HestonPricer
 from .heston_fast import HestonFastPricer
+from .certified_pricer import (
+    CertifiedBarrierDSTPricer,
+    CertifiedEuropeanPricer,
+    CertifiedPricingResult,
+)
 from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
 from .implied_vol import implied_volatility
 from .market_data import CalibrationResult, MarketData, MarketQuote, generate_synthetic_quotes
@@ -60,6 +65,9 @@ __all__ = [
     "AmericanPricer",
     "HestonPricer",
     "HestonFastPricer",
+    "CertifiedEuropeanPricer",
+    "CertifiedBarrierDSTPricer",
+    "CertifiedPricingResult",
     "compute_greeks",
     "bs_exact_price",
     "PricingResult",
