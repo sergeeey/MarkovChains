@@ -1,0 +1,7 @@
+# Benchmark dependencies for ChernoffPy vs QuantLib comparison
+# Install: pip install -r requirements.txt
+
+QuantLib-Python>=1.33
+matplotlib>=3.5.0
+numpy>=1.21.0
+scipy>=1.7.0

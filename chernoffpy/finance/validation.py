@@ -1,4 +1,4 @@
-"""Data classes for European and barrier option pricing."""
+"""Data classes for option pricing and validation."""
 
 from __future__ import annotations
 
@@ -28,6 +28,7 @@ class MarketParams:
     T: float      # Time to expiry (years)
     r: float      # Risk-free rate (annualized)
     sigma: float  # Volatility (annualized)
+    q: float = 0.0  # Continuous dividend yield
 
     def __post_init__(self):
         if self.S <= 0:
@@ -40,6 +41,33 @@ class MarketParams:
             raise ValueError(f"Risk-free rate r must be non-negative, got {self.r}")
         if self.sigma <= 0:
             raise ValueError(f"Volatility sigma must be positive, got {self.sigma}")
+        if self.q < 0:
+            raise ValueError(f"Dividend yield q must be non-negative, got {self.q}")
+
+
+@dataclass(frozen=True)
+class DividendSchedule:
+    """Schedule of discrete dividends for pricing with jumps in spot level."""
+
+    times: tuple[float, ...]
+    amounts: tuple[float, ...]
+    proportional: bool = False
+
+    def __post_init__(self):
+        if len(self.times) != len(self.amounts):
+            raise ValueError("times and amounts must have same length")
+        if len(self.times) == 0:
+            return
+        if tuple(sorted(self.times)) != self.times:
+            raise ValueError("Dividend times must be sorted")
+        for t in self.times:
+            if t <= 0:
+                raise ValueError(f"Dividend time must be > 0, got {t}")
+        for a in self.amounts:
+            if a <= 0:
+                raise ValueError(f"Dividend amount must be > 0, got {a}")
+        if self.proportional and any(a >= 1.0 for a in self.amounts):
+            raise ValueError("Proportional dividend amounts must be < 1.0")
 
 
 @dataclass

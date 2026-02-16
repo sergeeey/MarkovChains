@@ -2,7 +2,7 @@
 
 The substitution:
     x = ln(S/K),  tau = sigma^2 * T / 2
-    k = 2r / sigma^2
+    k = 2(r-q) / sigma^2
     alpha = -(k-1)/2,  beta = -(k+1)^2 / 4
     V(S, t) = K * exp(alpha*x + beta*tau) * u(x, tau)
 
@@ -12,7 +12,7 @@ transforms the Black-Scholes PDE into the heat equation u_tau = u_xx.
 import numpy as np
 from scipy.stats import norm
 
-from .validation import MarketParams, GridConfig
+from .validation import GridConfig, MarketParams
 
 # Maximum safe exponent to prevent overflow (exp(709) ~ float64 max)
 _MAX_EXP = 700.0
@@ -25,10 +25,12 @@ def compute_transform_params(market: MarketParams) -> tuple[float, float, float,
         (k, alpha, beta, t_eff) where t_eff = sigma^2 * T / 2 is the
         effective time for the heat equation.
     """
-    k = 2 * market.r / market.sigma ** 2
+    q = getattr(market, "q", 0.0)
+    r_eff = market.r - q
+    k = 2 * r_eff / market.sigma**2
     alpha = -(k - 1) / 2
-    beta = -(k + 1) ** 2 / 4
-    t_eff = market.sigma ** 2 * market.T / 2
+    beta = -((k - 1) ** 2) / 4 - 2 * market.r / (market.sigma**2)
+    t_eff = market.sigma**2 * market.T / 2
     return k, alpha, beta, t_eff
 
 
@@ -72,7 +74,7 @@ def bs_to_heat_initial(
 
     where payoff_normalized = max(e^x - 1, 0) for call, max(1 - e^x, 0) for put.
     """
-    k, alpha, beta, t_eff = compute_transform_params(market)
+    _, alpha, _, _ = compute_transform_params(market)
 
     if option_type == "call":
         payoff = np.maximum(np.exp(x_grid) - 1, 0)
@@ -81,19 +83,14 @@ def bs_to_heat_initial(
     else:
         raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
 
-    # u(x, 0) = exp(-alpha*x) * payoff = exp((k-1)x/2) * payoff
-    # Clip exponent to prevent overflow for low volatility (large |alpha|)
     raw_exponent = -alpha * x_grid
     exponent = np.clip(raw_exponent, -_MAX_EXP, _MAX_EXP)
     with np.errstate(over="ignore", invalid="ignore"):
         u0 = np.exp(exponent) * payoff
     u0 = np.nan_to_num(u0, nan=0.0, posinf=0.0, neginf=0.0)
 
-    # Overflow taper: smoothly zero IC where exp(-alpha*x) would be too large.
-    # Without this, huge IC values contaminate FFT for low volatility (large |alpha|).
-    # exp(10) ~ 2.2e4 is safe for FFT; fully tapered at 2x onset.
     _OVERFLOW_ONSET = 10.0
-    _OVERFLOW_FULL = 2.0 * _OVERFLOW_ONSET  # fully tapered at 2x onset
+    _OVERFLOW_FULL = 2.0 * _OVERFLOW_ONSET
     abs_exp = np.abs(raw_exponent)
     overflow_mask = abs_exp > _OVERFLOW_ONSET
     if np.any(overflow_mask):
@@ -115,11 +112,8 @@ def bs_to_heat_initial(
 def heat_to_bs_price(
     u: np.ndarray, x_grid: np.ndarray, market: MarketParams
 ) -> np.ndarray:
-    """Convert heat solution u(x, t_eff) back to BS prices V(S) on the full grid.
-
-    V(S_i) = K * exp(alpha * x_i + beta * t_eff) * u(x_i, t_eff)
-    """
-    k, alpha, beta, t_eff = compute_transform_params(market)
+    """Convert heat solution u(x, t_eff) back to BS prices V(S) on the full grid."""
+    _, alpha, beta, t_eff = compute_transform_params(market)
     exponent = np.clip(alpha * x_grid + beta * t_eff, -_MAX_EXP, _MAX_EXP)
     return market.K * np.exp(exponent) * u
 
@@ -127,11 +121,8 @@ def heat_to_bs_price(
 def extract_price_at_spot(
     u: np.ndarray, x_grid: np.ndarray, market: MarketParams
 ) -> float:
-    """Extract option price at the spot S0 by interpolating the heat solution.
-
-    x0 = ln(S0/K), then V(S0) = K * exp(alpha*x0 + beta*t_eff) * u(x0, t_eff).
-    """
-    k, alpha, beta, t_eff = compute_transform_params(market)
+    """Extract option price at spot by interpolating the heat solution."""
+    _, alpha, beta, t_eff = compute_transform_params(market)
     x0 = np.log(market.S / market.K)
     u_at_x0 = float(np.interp(x0, x_grid, u))
     exponent = np.clip(alpha * x0 + beta * t_eff, -_MAX_EXP, _MAX_EXP)
@@ -139,27 +130,23 @@ def extract_price_at_spot(
 
 
 def bs_exact_price(market: MarketParams, option_type: str = "call") -> float:
-    """Exact Black-Scholes formula.
-
-    Call = S*N(d1) - K*exp(-rT)*N(d2)
-    Put  = K*exp(-rT)*N(-d2) - S*N(-d1)
-    """
-    sqrt_T = np.sqrt(market.T)
+    """Exact Black-Scholes-Merton formula with continuous dividend yield q."""
+    sqrt_t = np.sqrt(market.T)
     d1 = (
-        np.log(market.S / market.K) + (market.r + market.sigma ** 2 / 2) * market.T
-    ) / (market.sigma * sqrt_T)
-    d2 = d1 - market.sigma * sqrt_T
+        np.log(market.S / market.K)
+        + (market.r - market.q + market.sigma**2 / 2) * market.T
+    ) / (market.sigma * sqrt_t)
+    d2 = d1 - market.sigma * sqrt_t
 
     if option_type == "call":
         return float(
-            market.S * norm.cdf(d1)
+            market.S * np.exp(-market.q * market.T) * norm.cdf(d1)
             - market.K * np.exp(-market.r * market.T) * norm.cdf(d2)
         )
-    elif option_type == "put":
+    if option_type == "put":
         return float(
             market.K * np.exp(-market.r * market.T) * norm.cdf(-d2)
-            - market.S * norm.cdf(-d1)
+            - market.S * np.exp(-market.q * market.T) * norm.cdf(-d1)
         )
-    else:
-        raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
+    raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
 

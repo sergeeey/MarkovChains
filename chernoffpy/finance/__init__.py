@@ -11,6 +11,7 @@ from .validation import (
     MarketParams,
     PricingResult,
     ValidationCertificate,
+    DividendSchedule,
 )
 from .transforms import (
     bs_exact_price,
@@ -27,6 +28,7 @@ from .barrier import BarrierPricer
 from .double_barrier import DoubleBarrierPricer
 from .barrier_dst import BarrierDSTPricer, DoubleBarrierDSTPricer
 from .american import AmericanPricer
+from .dividends import apply_discrete_dividend, find_dividend_steps
 from .heston import HestonPricer
 from .heston_fast import HestonFastPricer
 from .certified_pricer import (
@@ -41,6 +43,9 @@ from .calibration import VolCalibrator
 from .american_analytical import american_baw, american_binomial
 from .heston_params import HestonGridConfig, HestonParams, HestonPricingResult
 from .heston_analytical import heston_price
+from .bates_params import BatesParams, BatesPricingResult
+from .bates import BatesPricer
+from .bates_analytical import bates_price
 from .adaptive_grid import (
     compute_grid_quality,
     make_stretched_config,
@@ -72,6 +77,9 @@ __all__ = [
     "bs_exact_price",
     "PricingResult",
     "ValidationCertificate",
+    "DividendSchedule",
+    "apply_discrete_dividend",
+    "find_dividend_steps",
     "GreeksResult",
     "BarrierParams",
     "BarrierPricingResult",
@@ -82,6 +90,10 @@ __all__ = [
     "HestonGridConfig",
     "HestonPricingResult",
     "heston_price",
+    "BatesParams",
+    "BatesPricingResult",
+    "BatesPricer",
+    "bates_price",
     "snap_grid_to_barrier",
     "snap_grid_to_double_barrier",
     "make_stretched_config",
