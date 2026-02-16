@@ -93,7 +93,7 @@ def double_barrier_analytical(
     for n in range(1, n_terms + 1):
         kn = n * np.pi / L
         basis = np.sin(kn * (x_quad - xL))
-        A_n = 2.0 / L * np.trapezoid(u0 * basis, x_quad)
+        A_n = 2.0 / L * np.trapz(u0 * basis, x_quad)
         w_val += A_n * np.sin(kn * (x0 - xL)) * np.exp(-kn ** 2 * tau)
 
     price = K * np.exp(alpha * x0 + beta * tau - r * T) * w_val
