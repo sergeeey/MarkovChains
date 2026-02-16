@@ -238,11 +238,34 @@ def verify_convergence_order(
             "details": "Insufficient non-zero errors",
         }
 
+    # Filter plateau: when errors stop decreasing (domain error floor),
+    # exclude plateaued points so the regression reflects true convergence.
+    if len(errs) >= 3:
+        filtered = [errs[0]]
+        for i in range(1, len(errs)):
+            prev_err = filtered[-1][1]
+            curr_err = errs[i][1]
+            # Keep point only if error decreased by at least 20%
+            if curr_err < 0.8 * prev_err:
+                filtered.append(errs[i])
+        if len(filtered) >= 2:
+            errs = filtered
+
+    if len(errs) < 2:
+        return {
+            "empirical_order": None,
+            "expected_order": expected_order,
+            "is_consistent": False,
+            "details": "All errors plateaued (domain error floor)",
+        }
+
     log_n = np.log([n for n, _ in errs])
     log_e = np.log([e for _, e in errs])
     slope, _ = np.polyfit(log_n, log_e, 1)
     empirical = float(-slope)
-    consistent = abs(empirical - expected_order) <= tolerance
+    # One-sided: the theorem gives a lower bound on convergence rate,
+    # so empirical order higher than expected is correct behaviour.
+    consistent = empirical >= expected_order - tolerance
 
     return {
         "empirical_order": empirical,
