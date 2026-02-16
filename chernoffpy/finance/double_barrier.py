@@ -79,7 +79,9 @@ class DoubleBarrierPricer:
         u = np.where(barrier_mask, 0.0, u)
 
         _, _, _, t_eff = compute_transform_params(market)
-        n_internal = max(n_steps, 500)
+        # Balance temporal accuracy vs Gibbs artifacts from barrier projection.
+        # sqrt(N) scaling: enough steps for convergence without excess ringing.
+        n_internal = max(n_steps, int(10 * np.sqrt(self.grid_config.N)))
         dt = t_eff / n_internal
 
         for _ in range(n_internal):

@@ -92,9 +92,9 @@ class BarrierPricer:
 
         u = np.where(barrier_mask, 0.0, u)
 
-        # Empirically, barrier projection error is dominated by time discretization.
-        # Use a higher internal step count for robust accuracy while preserving API.
-        n_internal = max(n_steps, 300)
+        # Balance temporal accuracy vs Gibbs artifacts from barrier projection.
+        # sqrt(N) scaling: enough steps for convergence without excess ringing.
+        n_internal = max(n_steps, int(10 * np.sqrt(config.N)))
         dt = t_eff / n_internal
 
         for _ in range(n_internal):
