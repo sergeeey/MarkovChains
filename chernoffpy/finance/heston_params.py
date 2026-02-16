@@ -80,6 +80,7 @@ class HestonPricingResult:
     """Output bundle for Heston pricing."""
 
     price: float
+    analytical_price: float | None
     bs_equiv_price: float
     implied_vol: float | None
     option_type: str

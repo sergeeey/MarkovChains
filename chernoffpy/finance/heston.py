@@ -70,10 +70,7 @@ class HestonPricer:
         except Exception:
             analytical_price = None
 
-        if analytical_price is not None and np.isfinite(analytical_price):
-            price = float(max(0.0, analytical_price))
-        else:
-            price = pde_price
+        price = pde_price
 
         bs_market = MarketParams(
             S=params.S,
@@ -99,6 +96,7 @@ class HestonPricer:
 
         return HestonPricingResult(
             price=price,
+            analytical_price=analytical_price,
             bs_equiv_price=bs_equiv,
             implied_vol=iv,
             option_type=option_type,
@@ -123,7 +121,7 @@ class HestonPricer:
 
         for j, vj in enumerate(v_grid):
             v = max(float(vj), 1e-8)
-            dt_heat = v * dt
+            dt_heat = 0.5 * v * dt
             if dt_heat <= 1e-14:
                 continue
 
