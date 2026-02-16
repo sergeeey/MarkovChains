@@ -26,6 +26,8 @@ from .barrier import BarrierPricer
 from .double_barrier import DoubleBarrierPricer
 from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
 from .implied_vol import implied_volatility
+from .market_data import CalibrationResult, MarketData, MarketQuote, generate_synthetic_quotes
+from .calibration import VolCalibrator
 from .reporting import (
     barrier_result_to_report,
     certificate_to_report,
@@ -55,6 +57,11 @@ __all__ = [
     "linear_skew",
     "time_dependent_vol",
     "implied_volatility",
+    "MarketQuote",
+    "MarketData",
+    "CalibrationResult",
+    "generate_synthetic_quotes",
+    "VolCalibrator",
     "certificate_to_report",
     "pricing_result_to_report",
     "barrier_result_to_report",
