@@ -25,6 +25,7 @@ from .european import EuropeanPricer
 from .greeks import compute_greeks
 from .barrier import BarrierPricer
 from .double_barrier import DoubleBarrierPricer
+from .barrier_dst import BarrierDSTPricer, DoubleBarrierDSTPricer
 from .american import AmericanPricer
 from .heston import HestonPricer
 from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
@@ -53,6 +54,8 @@ __all__ = [
     "EuropeanPricer",
     "BarrierPricer",
     "DoubleBarrierPricer",
+    "BarrierDSTPricer",
+    "DoubleBarrierDSTPricer",
     "AmericanPricer",
     "HestonPricer",
     "compute_greeks",
