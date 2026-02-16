@@ -189,9 +189,10 @@ def plot_barrier_comparison():
                      color="C1", markersize=8, linewidth=2)
             
             # Add floor line annotation for DST
+            # DST floor = 10*sqrt(N) ≈ 452 for N=2048
             if config_name == "DOC B=99":
-                ax.axvline(x=320, color="C1", linestyle=":", alpha=0.5)
-                ax.text(350, ax.get_ylim()[1]*0.5, "floor=320", 
+                ax.axvline(x=452, color="C1", linestyle=":", alpha=0.5)
+                ax.text(470, ax.get_ylim()[1]*0.5, "floor=452",
                        fontsize=8, color="C1", alpha=0.7)
         
         # Plot QuantLib FDM variants

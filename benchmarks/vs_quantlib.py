@@ -159,18 +159,18 @@ def benchmark_barrier():
     Ключевой результат: DST eliminates Gibbs ringing.
     
     NOTE: BarrierDSTPricer использует n_internal = max(n_steps, 10*sqrt(N)).
-    При N=1024 floor=320. Используем N=256 (floor=160) чтобы тестировать 
-    реальную сходимость по n_steps.
+    При N=2048 floor ≈ 452. Все n_steps должны быть > floor для
+    демонстрации реальной сходимости по n_steps.
     """
     print("  Setting up Barrier benchmark...")
-    print("  Using GridConfig(N=256) to ensure n_steps variation is meaningful")
+    # DST floor = 10*sqrt(N) ≈ 452 for N=2048
+    # All n_steps must exceed floor; otherwise n_internal = floor (plateau)
+    print("  Using GridConfig(N=2048) with n_steps > 452 (floor=10*sqrt(N))")
     
     market = MarketParams(S=100, K=100, T=1.0, r=0.05, sigma=0.20)
     
-    # Use smaller N to ensure n_steps variation matters
-    # N=256 -> floor = 10*sqrt(256) = 160
-    # Use N=2048 (default) for accuracy, n_steps > 320 to beat floor
-    # floor = 10 * sqrt(2048) ≈ 452
+    # DST floor = 10*sqrt(N) ≈ 452 for N=2048
+    # All n_steps > floor so each row uses distinct n_internal
     grid_config = GridConfig(N=2048, L=10.0, taper_width=2.0)
     
     configs = [
@@ -186,10 +186,9 @@ def benchmark_barrier():
         
         # ChernoffPy DST with custom grid_config
         pricer = BarrierDSTPricer(CrankNicolson(), grid_config)
-        # Test n_steps around and above floor=320
-        # [200, 400] are at/below floor (will show plateau)
-        # [600, 800, 1200] are above floor (show true convergence)
-        for n in [200, 400, 600, 800, 1200]:
+        # DST floor = 10*sqrt(N) ≈ 452 for N=2048
+        # All n_steps > 452 to avoid degenerate identical-price rows
+        for n in [500, 700, 900, 1200]:
             m = measure(pricer.price, market, bp, n, opt_type, n_runs=10)
             error_pct = abs(m["price"].price - exact) / max(exact, 1e-10) * 100
             results.append({
@@ -305,8 +304,9 @@ def benchmark_heston():
     results = []
     
     # ChernoffPy - with Numba warmup
-    for nx, nv in [(128, 48), (256, 64)]:
-        grid = HestonGridConfig(n_x=nx, n_v=nv)
+    # v_max=0.5 (theta=0.04: variance rarely exceeds 0.3; v_max=1.0 wastes grid)
+    for nx, nv in [(256, 64), (512, 96)]:
+        grid = HestonGridConfig(n_x=nx, n_v=nv, v_max=0.5)
         pricer = HestonFastPricer(CrankNicolson(), grid)
         
         # Numba JIT warmup - compile kernels
