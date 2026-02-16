@@ -55,13 +55,46 @@ class LocalVolResult:
 class LocalVolPricer:
     """Price options under local volatility with frozen coefficients.
 
-    At each time step, sigma(S,t) is sampled on grid and collapsed into one
-    effective sigma using current solution weights.
+    The scheme uses a spot-centered effective volatility and a predictor-corrector
+    step to reduce single-sigma reduction bias.
     """
 
     def __init__(self, chernoff, grid_config: GridConfig | None = None):
         self.chernoff = chernoff
         self.grid_config = grid_config if grid_config is not None else GridConfig()
+
+    def _effective_sigma(
+        self,
+        x_grid: np.ndarray,
+        s_grid: np.ndarray,
+        u: np.ndarray,
+        x0: float,
+        t: float,
+        vol_surface: VolSurface,
+    ) -> float:
+        """Compute robust effective sigma around spot on current step."""
+        sigma_local = vol_surface(s_grid, t)
+        sigma_arr = np.asarray(sigma_local, dtype=float)
+        if sigma_arr.ndim == 0:
+            sigma_arr = np.full_like(s_grid, float(sigma_arr))
+
+        # Guard against pathological surfaces and non-finite values.
+        sigma_arr = np.nan_to_num(sigma_arr, nan=0.2, posinf=5.0, neginf=1e-6)
+        sigma_arr = np.clip(sigma_arr, 1e-6, 3.0)
+
+        # Spot-centered Gaussian weights suppress unstable far-tail influence.
+        width = 0.75
+        w_spot = np.exp(-0.5 * ((x_grid - x0) / width) ** 2)
+
+        # Blend locality with current solution magnitude.
+        w_sol = np.abs(u) + 1e-12
+        weights = w_spot * w_sol
+        denom = np.sum(weights)
+        if denom <= 0:
+            return float(np.clip(np.interp(x0, x_grid, sigma_arr), 1e-6, 3.0))
+
+        sigma_eff = float(np.sum(weights * sigma_arr) / denom)
+        return float(np.clip(sigma_eff, 1e-6, 3.0))
 
     def price(
         self,
@@ -77,9 +110,10 @@ class LocalVolPricer:
         cfg = self.grid_config
         x_grid = make_grid(cfg)
         s_grid = params.K * np.exp(x_grid)
+        x0 = np.log(params.S / params.K)
 
         sigma0 = float(np.asarray(params.vol_surface(params.S, params.T)))
-        sigma0 = max(1e-6, sigma0)
+        sigma0 = float(np.clip(np.nan_to_num(sigma0, nan=0.2, posinf=3.0, neginf=1e-6), 1e-6, 3.0))
 
         market_ref = MarketParams(
             S=params.S,
@@ -95,20 +129,29 @@ class LocalVolPricer:
         sigma_history: list[float] = []
 
         for step in range(n_steps):
-            t_current = params.T - step * dt
-            sigma_local = params.vol_surface(s_grid, t_current)
-            sigma_arr = np.asarray(sigma_local, dtype=float)
-            if sigma_arr.ndim == 0:
-                sigma_arr = np.full_like(s_grid, float(sigma_arr))
+            t_left = params.T - step * dt
 
-            sigma_arr = np.clip(sigma_arr, 1e-6, 5.0)
+            # Predictor sigma at left endpoint.
+            sigma_pred = self._effective_sigma(
+                x_grid, s_grid, u, x0, t_left, params.vol_surface
+            )
+            dt_heat_pred = 0.5 * sigma_pred ** 2 * dt
+            u_pred = self.chernoff.apply(u, x_grid, dt_heat_pred)
 
-            # Collapse local vol surface to one effective sigma for this step.
-            weights = np.abs(u) + 1e-12
-            sigma_eff = float(np.sum(weights * sigma_arr) / np.sum(weights))
-            sigma_history.append(sigma_eff)
+            # Corrector sigma at midpoint using predicted state.
+            sigma_corr = self._effective_sigma(
+                x_grid,
+                s_grid,
+                0.5 * (u + u_pred),
+                x0,
+                max(0.0, t_left - 0.5 * dt),
+                params.vol_surface,
+            )
 
-            dt_heat = 0.5 * sigma_eff ** 2 * dt
+            sigma_step = 0.5 * (sigma_pred + sigma_corr)
+            sigma_history.append(sigma_step)
+
+            dt_heat = 0.5 * sigma_step ** 2 * dt
             u = self.chernoff.apply(u, x_grid, dt_heat)
 
         price = max(0.0, extract_price_at_spot(u, x_grid, market_ref))
