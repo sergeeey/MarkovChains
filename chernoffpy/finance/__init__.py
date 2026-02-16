@@ -1,6 +1,7 @@
 """European and exotic option pricing via Chernoff approximations."""
 
 from .validation import (
+    AmericanPricingResult,
     BarrierParams,
     BarrierPricingResult,
     DoubleBarrierParams,
@@ -24,10 +25,12 @@ from .european import EuropeanPricer
 from .greeks import compute_greeks
 from .barrier import BarrierPricer
 from .double_barrier import DoubleBarrierPricer
+from .american import AmericanPricer
 from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
 from .implied_vol import implied_volatility
 from .market_data import CalibrationResult, MarketData, MarketQuote, generate_synthetic_quotes
 from .calibration import VolCalibrator
+from .american_analytical import american_baw, american_binomial
 from .reporting import (
     barrier_result_to_report,
     certificate_to_report,
@@ -41,6 +44,7 @@ __all__ = [
     "EuropeanPricer",
     "BarrierPricer",
     "DoubleBarrierPricer",
+    "AmericanPricer",
     "compute_greeks",
     "bs_exact_price",
     "PricingResult",
@@ -50,6 +54,7 @@ __all__ = [
     "BarrierPricingResult",
     "DoubleBarrierParams",
     "DoubleBarrierPricingResult",
+    "AmericanPricingResult",
     # Phase 3+
     "LocalVolPricer",
     "LocalVolParams",
@@ -62,6 +67,10 @@ __all__ = [
     "CalibrationResult",
     "generate_synthetic_quotes",
     "VolCalibrator",
+    # Analytical references
+    "american_baw",
+    "american_binomial",
+    # Reporting
     "certificate_to_report",
     "pricing_result_to_report",
     "barrier_result_to_report",

@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
+import numpy as np
+
 
 BarrierType = Literal[
     "down_and_out",
@@ -14,6 +16,7 @@ BarrierType = Literal[
 ]
 
 DoubleBarrierType = Literal["double_knock_out", "double_knock_in"]
+ExerciseType = Literal["european", "american"]
 
 
 @dataclass(frozen=True)
@@ -155,6 +158,21 @@ class DoubleBarrierPricingResult:
     n_steps: int
     market: MarketParams
     barrier_params: DoubleBarrierParams
+    certificate: ValidationCertificate | None = None
+
+
+@dataclass
+class AmericanPricingResult:
+    """Complete result of American option pricing."""
+
+    price: float
+    european_price: float
+    early_exercise_premium: float
+    exercise_boundary: np.ndarray | None
+    option_type: str
+    method_name: str
+    n_steps: int
+    market: MarketParams
     certificate: ValidationCertificate | None = None
 
 
