@@ -22,6 +22,8 @@ from chernoffpy.functions import (
 )
 from chernoffpy.semigroups import HeatSemigroup
 from chernoffpy.analysis import compute_errors, convergence_rate, convergence_table
+from chernoffpy.accel import HAS_NUMBA, mixed_deriv_step, thomas_solve_batch
+from chernoffpy.backends import HAS_CUPY, get_backend, to_backend, to_numpy
 
 __version__ = "0.1.0"
 __author__ = "Built on the theory of I.D. Remizov, O.E. Galkin et al."
