@@ -26,11 +26,14 @@ from .greeks import compute_greeks
 from .barrier import BarrierPricer
 from .double_barrier import DoubleBarrierPricer
 from .american import AmericanPricer
+from .heston import HestonPricer
 from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
 from .implied_vol import implied_volatility
 from .market_data import CalibrationResult, MarketData, MarketQuote, generate_synthetic_quotes
 from .calibration import VolCalibrator
 from .american_analytical import american_baw, american_binomial
+from .heston_params import HestonGridConfig, HestonParams, HestonPricingResult
+from .heston_analytical import heston_price
 from .reporting import (
     barrier_result_to_report,
     certificate_to_report,
@@ -45,6 +48,7 @@ __all__ = [
     "BarrierPricer",
     "DoubleBarrierPricer",
     "AmericanPricer",
+    "HestonPricer",
     "compute_greeks",
     "bs_exact_price",
     "PricingResult",
@@ -55,6 +59,10 @@ __all__ = [
     "DoubleBarrierParams",
     "DoubleBarrierPricingResult",
     "AmericanPricingResult",
+    "HestonParams",
+    "HestonGridConfig",
+    "HestonPricingResult",
+    "heston_price",
     # Phase 3+
     "LocalVolPricer",
     "LocalVolParams",
