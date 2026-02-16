@@ -43,6 +43,14 @@ from chernoffpy.finance.heston_fast import HestonFastPricer
 from chernoffpy.finance.heston_params import HestonParams, HestonGridConfig
 from chernoffpy.finance.heston_analytical import heston_price
 
+# Check Numba availability
+from chernoffpy.accel import HAS_NUMBA
+if HAS_NUMBA:
+    import numba
+    print(f"  Numba available: {numba.__version__}")
+else:
+    print("  WARNING: Numba not available! Heston will be significantly slower.")
+
 from helpers import (
     ql_european_fdm,
     ql_european_analytical,
@@ -149,10 +157,21 @@ def benchmark_barrier():
     
     Exact = Reiner-Rubinstein analytical.
     Ключевой результат: DST eliminates Gibbs ringing.
+    
+    NOTE: BarrierDSTPricer использует n_internal = max(n_steps, 10*sqrt(N)).
+    При N=1024 floor=320. Используем N=256 (floor=160) чтобы тестировать 
+    реальную сходимость по n_steps.
     """
     print("  Setting up Barrier benchmark...")
+    print("  Using GridConfig(N=256) to ensure n_steps variation is meaningful")
     
     market = MarketParams(S=100, K=100, T=1.0, r=0.05, sigma=0.20)
+    
+    # Use smaller N to ensure n_steps variation matters
+    # N=256 -> floor = 10*sqrt(256) = 160
+    # Use N=2048 (default) for accuracy, n_steps > 320 to beat floor
+    # floor = 10 * sqrt(2048) ≈ 452
+    grid_config = GridConfig(N=2048, L=10.0, taper_width=2.0)
     
     configs = [
         ("DOC B=90", BarrierParams(barrier=90, barrier_type="down_and_out"), "call", "DownOut"),
@@ -165,9 +184,12 @@ def benchmark_barrier():
     for name, bp, opt_type, ql_bt in configs:
         exact = barrier_analytical(market, bp, opt_type)
         
-        # ChernoffPy DST
-        pricer = BarrierDSTPricer(CrankNicolson())
-        for n in [20, 50, 100, 200]:
+        # ChernoffPy DST with custom grid_config
+        pricer = BarrierDSTPricer(CrankNicolson(), grid_config)
+        # Test n_steps around and above floor=320
+        # [200, 400] are at/below floor (will show plateau)
+        # [600, 800, 1200] are above floor (show true convergence)
+        for n in [200, 400, 600, 800, 1200]:
             m = measure(pricer.price, market, bp, n, opt_type, n_runs=10)
             error_pct = abs(m["price"].price - exact) / max(exact, 1e-10) * 100
             results.append({
@@ -282,10 +304,15 @@ def benchmark_heston():
     
     results = []
     
-    # ChernoffPy
-    for nx, nv in [(128, 48), (256, 64), (512, 96)]:
+    # ChernoffPy - with Numba warmup
+    for nx, nv in [(128, 48), (256, 64)]:
         grid = HestonGridConfig(n_x=nx, n_v=nv)
         pricer = HestonFastPricer(CrankNicolson(), grid)
+        
+        # Numba JIT warmup - compile kernels
+        print(f"  Warming up Numba for grid ({nx}×{nv})...")
+        _ = pricer.price(params, n_steps=5, option_type="call")
+        
         for n in [20, 50, 100]:
             m = measure(pricer.price, params, n, "call", n_runs=3)
             error_pct = abs(m["price"].price - exact) / exact * 100

@@ -187,6 +187,12 @@ def plot_barrier_comparison():
             d = methods["ChernoffPy DST"]
             ax.loglog(d["n"], d["err"], "-o", label="ChernoffPy DST",
                      color="C1", markersize=8, linewidth=2)
+            
+            # Add floor line annotation for DST
+            if config_name == "DOC B=99":
+                ax.axvline(x=320, color="C1", linestyle=":", alpha=0.5)
+                ax.text(350, ax.get_ylim()[1]*0.5, "floor=320", 
+                       fontsize=8, color="C1", alpha=0.7)
         
         # Plot QuantLib FDM variants
         for method, d in methods.items():
