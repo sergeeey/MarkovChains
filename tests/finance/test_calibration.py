@@ -150,11 +150,10 @@ class TestModelFitCalibration:
         )
         assert abs(result.params[0] - 0.20) < 0.02
 
-    def test_model_fit_better_than_iv_fit(self):
+    def test_model_fit_reasonable_accuracy(self):
         data = _linear_skew_market_data(a=0.22, b=-0.06, c=0.02)
         calibrator = VolCalibrator(chernoff=CrankNicolson())
 
-        iv_result = calibrator.calibrate(data, parametrization="linear_skew", method="iv_fit")
         model_result = calibrator.calibrate(
             data,
             parametrization="linear_skew",
@@ -163,7 +162,9 @@ class TestModelFitCalibration:
             maxiter=120,
         )
 
-        assert model_result.rmse <= max(0.15, iv_result.rmse + 0.12)
+        # model_fit uses Chernoff numerical pricing, so discretization error
+        # prevents exact recovery. RMSE ~0.065 at n_steps=35 is expected.
+        assert model_result.rmse < 0.10
 
     def test_model_fit_requires_chernoff(self):
         data = generate_synthetic_quotes(sigma=0.20)
