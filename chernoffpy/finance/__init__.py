@@ -3,6 +3,8 @@
 from .validation import (
     BarrierParams,
     BarrierPricingResult,
+    DoubleBarrierParams,
+    DoubleBarrierPricingResult,
     GridConfig,
     GreeksResult,
     MarketParams,
@@ -21,6 +23,7 @@ from .transforms import (
 from .european import EuropeanPricer
 from .greeks import compute_greeks
 from .barrier import BarrierPricer
+from .double_barrier import DoubleBarrierPricer
 from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
 from .implied_vol import implied_volatility
 from .reporting import (
@@ -35,6 +38,7 @@ __all__ = [
     "GridConfig",
     "EuropeanPricer",
     "BarrierPricer",
+    "DoubleBarrierPricer",
     "compute_greeks",
     "bs_exact_price",
     "PricingResult",
@@ -42,7 +46,9 @@ __all__ = [
     "GreeksResult",
     "BarrierParams",
     "BarrierPricingResult",
-    # Phase 3
+    "DoubleBarrierParams",
+    "DoubleBarrierPricingResult",
+    # Phase 3+
     "LocalVolPricer",
     "LocalVolParams",
     "flat_vol",

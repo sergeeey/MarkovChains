@@ -13,6 +13,8 @@ BarrierType = Literal[
     "up_and_in",
 ]
 
+DoubleBarrierType = Literal["double_knock_out", "double_knock_in"]
+
 
 @dataclass(frozen=True)
 class MarketParams:
@@ -71,6 +73,33 @@ class BarrierParams:
             raise ValueError(f"rebate must be >= 0, got {self.rebate}")
 
 
+@dataclass(frozen=True)
+class DoubleBarrierParams:
+    """Parameters for double barrier options."""
+
+    lower_barrier: float
+    upper_barrier: float
+    barrier_type: DoubleBarrierType
+    rebate: float = 0.0
+
+    def __post_init__(self):
+        if self.lower_barrier <= 0:
+            raise ValueError(
+                f"lower_barrier must be > 0, got {self.lower_barrier}"
+            )
+        if self.upper_barrier <= 0:
+            raise ValueError(
+                f"upper_barrier must be > 0, got {self.upper_barrier}"
+            )
+        if self.lower_barrier >= self.upper_barrier:
+            raise ValueError(
+                f"lower_barrier ({self.lower_barrier}) must be < "
+                f"upper_barrier ({self.upper_barrier})"
+            )
+        if self.rebate < 0:
+            raise ValueError(f"rebate must be >= 0, got {self.rebate}")
+
+
 @dataclass
 class ValidationCertificate:
     """Accuracy certificate decomposing total error into components.
@@ -111,6 +140,21 @@ class BarrierPricingResult:
     n_steps: int
     market: MarketParams
     barrier_params: BarrierParams
+    certificate: ValidationCertificate | None = None
+
+
+@dataclass
+class DoubleBarrierPricingResult:
+    """Complete result of double-barrier option pricing."""
+
+    price: float
+    vanilla_price: float
+    knockout_price: float
+    barrier_type: DoubleBarrierType
+    method_name: str
+    n_steps: int
+    market: MarketParams
+    barrier_params: DoubleBarrierParams
     certificate: ValidationCertificate | None = None
 
 
