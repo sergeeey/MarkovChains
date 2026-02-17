@@ -25,6 +25,11 @@ class HestonPricer:
         n_steps: int = 50,
         option_type: str = "call",
     ) -> HestonPricingResult:
+        """Price a European option under the Heston stochastic volatility model.
+
+        Uses Strang splitting: Lx(dt/2) -> Lv(dt/2) -> Lmix(dt) -> Lv(dt/2) -> Lx(dt/2).
+        Overall convergence is O(dt) due to first-order sub-solvers for Lv and Lmix.
+        """
         if option_type not in {"call", "put"}:
             raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
         if n_steps < 1:

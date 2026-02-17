@@ -42,31 +42,43 @@ def implied_volatility(
 
     intrinsic = _intrinsic_value(S, K, r, T, option_type)
     upper = _upper_bound(S, K, r, T, option_type)
-    if market_price < intrinsic - 1e-12:
+    # Tolerance for comparison with intrinsic/upper bounds (avoids
+    # false rejection from floating-point rounding in BS formula).
+    _PRICE_TOL = 1e-12
+    if market_price < intrinsic - _PRICE_TOL:
         raise ValueError(
             f"market_price={market_price} is below intrinsic value={intrinsic}"
         )
-    if market_price > upper + 1e-12:
+    if market_price > upper + _PRICE_TOL:
         raise ValueError(
             f"market_price={market_price} is above theoretical upper bound={upper}"
         )
-    if market_price <= intrinsic + 1e-12:
-        return 1e-6
+    # At-the-money or deep-in-the-money: return minimum sigma floor.
+    _SIGMA_FLOOR = 1e-6  # Minimum representable vol (avoids division by zero in BS)
+    if market_price <= intrinsic + _PRICE_TOL:
+        return _SIGMA_FLOOR
 
     def objective(sigma: float) -> float:
         market = MarketParams(S=S, K=K, T=T, r=r, sigma=sigma)
         return bs_exact_price(market, option_type) - market_price
 
-    sigma_low = 1e-6
+    # Search bracket: sigma in [1e-6, 5.0] covers all practical implied vols.
+    # sigma_low > 0 avoids BS singularity at sigma=0.
+    # sigma_high = 5.0 (500% vol) is well above any observed market IV.
+    sigma_low = _SIGMA_FLOOR
     sigma_high = 5.0
 
+    # Root-finding tolerance: 1e-12 gives ~10 decimal places of IV precision.
+    _ROOT_TOL = 1e-12
+
     if method == "brentq":
-        return float(brentq(objective, sigma_low, sigma_high, xtol=1e-12))
+        return float(brentq(objective, sigma_low, sigma_high, xtol=_ROOT_TOL))
     if method == "newton":
         def deriv(sigma: float) -> float:
+            # Central difference with adaptive step size for numerical vega.
             h = max(1e-5, sigma * 1e-4)
             return (objective(sigma + h) - objective(sigma - h)) / (2 * h)
 
-        return float(newton(func=objective, x0=0.2, fprime=deriv, tol=1e-12, maxiter=100))
+        return float(newton(func=objective, x0=0.2, fprime=deriv, tol=_ROOT_TOL, maxiter=100))
 
     raise ValueError(f"method must be 'brentq' or 'newton', got '{method}'")

@@ -66,6 +66,11 @@ class BarrierDSTPricer(_DSTStepper):
         n_steps: int = 50,
         option_type: str = "call",
     ) -> BarrierPricingResult:
+        """Price a single-barrier option using DST-I Chernoff stepping.
+
+        Uses n_internal = max(n_steps, 10*sqrt(N)) time steps to balance
+        temporal accuracy with the spatial resolution of the DST grid.
+        """
         if option_type not in {"call", "put"}:
             raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
         if n_steps < 1:
@@ -251,6 +256,10 @@ class DoubleBarrierDSTPricer(_DSTStepper):
         n_steps: int = 50,
         option_type: str = "call",
     ) -> DoubleBarrierPricingResult:
+        """Price a double-barrier option using DST-I on the corridor [xL, xU].
+
+        Both barriers are enforced via Dirichlet BCs (sine transform).
+        """
         if option_type not in {"call", "put"}:
             raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
         if n_steps < 1:

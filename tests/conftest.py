@@ -37,12 +37,6 @@ def gaussian_initial(small_grid):
 
 
 @pytest.fixture
-def abs_sin_initial(small_grid):
-    """|sin(x)| on small_grid — only C^0, limited regularity."""
-    return np.abs(np.sin(small_grid))
-
-
-@pytest.fixture
 def sin_medium(medium_grid):
     """sin(x) on medium_grid."""
     return np.sin(medium_grid)

@@ -78,11 +78,14 @@ class LocalVolPricer:
         if sigma_arr.ndim == 0:
             sigma_arr = np.full_like(s_grid, float(sigma_arr))
 
-        # Guard against pathological surfaces and non-finite values.
+        # Guard against pathological surfaces: replace NaN with ATM-like vol (20%),
+        # clip to [1e-6, 3.0] (300% vol upper bound covers extreme skew scenarios).
         sigma_arr = np.nan_to_num(sigma_arr, nan=0.2, posinf=5.0, neginf=1e-6)
         sigma_arr = np.clip(sigma_arr, 1e-6, 3.0)
 
         # Spot-centered Gaussian weights suppress unstable far-tail influence.
+        # Width 0.75 in log-moneyness units ≈ ±75% from spot — captures the
+        # local vol smile near ATM without contamination from deep OTM nodes.
         width = 0.75
         w_spot = np.exp(-0.5 * ((x_grid - x0) / width) ** 2)
 
@@ -102,6 +105,11 @@ class LocalVolPricer:
         n_steps: int = 100,
         option_type: str = "call",
     ) -> LocalVolResult:
+        """Price an option under local volatility using predictor-corrector Chernoff steps.
+
+        Each step computes an effective sigma via Gaussian-weighted averaging
+        around the spot, then applies the Chernoff operator with dt_heat = 0.5*sigma^2*dt.
+        """
         if option_type not in {"call", "put"}:
             raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
         if n_steps < 1:

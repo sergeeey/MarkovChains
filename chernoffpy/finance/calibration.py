@@ -30,7 +30,7 @@ class VolCalibrator:
             return self._calibrate_iv_fit(market_data, parametrization, **kwargs)
         if method == "model_fit":
             return self._calibrate_model_fit(market_data, parametrization, **kwargs)
-        raise ValueError(f"Unknown method: {method}")
+        raise ValueError(f"Unknown method: '{method}'. Valid: 'iv_fit', 'model_fit'")
 
     def _calibrate_iv_fit(
         self,

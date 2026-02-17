@@ -89,6 +89,9 @@ def bs_to_heat_initial(
         u0 = np.exp(exponent) * payoff
     u0 = np.nan_to_num(u0, nan=0.0, posinf=0.0, neginf=0.0)
 
+    # Overflow taper: when |alpha*x| > 10, the initial condition starts
+    # losing significance; by |alpha*x| = 20 it is fully tapered to zero.
+    # These thresholds are conservative (exp(700) ~ float64 max = exp(709)).
     _OVERFLOW_ONSET = 10.0
     _OVERFLOW_FULL = 2.0 * _OVERFLOW_ONSET
     abs_exp = np.abs(raw_exponent)

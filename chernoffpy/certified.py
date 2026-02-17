@@ -56,22 +56,27 @@ class PayoffRegularity:
 
     @staticmethod
     def vanilla_call() -> "PayoffRegularity":
+        """Vanilla call/put: payoff in H^2 (kink at strike limits regularity)."""
         return PayoffRegularity(k_f=2, name="vanilla call/put")
 
     @staticmethod
     def digital() -> "PayoffRegularity":
+        """Digital option: discontinuous payoff, k_f=0 (no Sobolev regularity)."""
         return PayoffRegularity(k_f=0, name="digital")
 
     @staticmethod
     def smooth(k: int = 100) -> "PayoffRegularity":
+        """Smooth payoff (e.g., power options): arbitrarily high regularity."""
         return PayoffRegularity(k_f=max(k, 1), name="smooth payoff")
 
     @staticmethod
     def barrier() -> "PayoffRegularity":
+        """Barrier option via DST: Dirichlet BCs restore H^2 regularity."""
         return PayoffRegularity(k_f=2, name="barrier (DST)")
 
     @staticmethod
     def barrier_fft() -> "PayoffRegularity":
+        """Barrier option via FFT+projection: Gibbs artifacts destroy regularity."""
         return PayoffRegularity(k_f=0, name="barrier (FFT+projection)")
 
 

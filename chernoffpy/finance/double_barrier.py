@@ -34,6 +34,11 @@ class DoubleBarrierPricer:
         n_steps: int = 50,
         option_type: str = "call",
     ) -> DoubleBarrierPricingResult:
+        """Price a double-barrier option via FFT Chernoff steps with projection.
+
+        Barrier conditions are enforced by zeroing u outside the corridor
+        after each Chernoff step. Uses n_internal = max(n_steps, 10*sqrt(N)).
+        """
         if option_type not in {"call", "put"}:
             raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
         if n_steps < 1:
