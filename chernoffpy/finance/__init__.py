@@ -36,7 +36,7 @@ from .certified_pricer import (
     CertifiedEuropeanPricer,
     CertifiedPricingResult,
 )
-from .local_vol import LocalVolParams, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
+from .local_vol import LocalVolParams, LocalVolPricingResult, LocalVolPricer, flat_vol, linear_skew, time_dependent_vol
 from .implied_vol import implied_volatility
 from .market_data import CalibrationResult, MarketData, MarketQuote, generate_synthetic_quotes
 from .calibration import VolCalibrator
@@ -100,6 +100,7 @@ __all__ = [
     "compute_grid_quality",
     # Phase 3+
     "LocalVolPricer",
+    "LocalVolPricingResult",
     "LocalVolParams",
     "flat_vol",
     "linear_skew",

@@ -37,6 +37,9 @@ class ChernoffFunction(ABC):
     def apply(self, f_values: np.ndarray, x_grid: np.ndarray, t: float) -> np.ndarray:
         """Apply C(t) to discretized function values on x_grid."""
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(order={self.order})"
+
     def compose(self, f_values: np.ndarray, x_grid: np.ndarray, t: float, n: int) -> np.ndarray:
         """Compute C(t/n)^n f — the Chernoff approximation with n steps.
 

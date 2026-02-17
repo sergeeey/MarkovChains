@@ -42,7 +42,7 @@ class LocalVolParams:
 
 
 @dataclass
-class LocalVolResult:
+class LocalVolPricingResult:
     """Pricing result for local-vol solver."""
 
     price: float
@@ -104,7 +104,7 @@ class LocalVolPricer:
         params: LocalVolParams,
         n_steps: int = 100,
         option_type: str = "call",
-    ) -> LocalVolResult:
+    ) -> LocalVolPricingResult:
         """Price an option under local volatility using predictor-corrector Chernoff steps.
 
         Each step computes an effective sigma via Gaussian-weighted averaging
@@ -165,7 +165,7 @@ class LocalVolPricer:
         price = max(0.0, extract_price_at_spot(u, x_grid, market_ref))
         sigma_mean = float(np.mean(sigma_history)) if sigma_history else sigma0
 
-        return LocalVolResult(
+        return LocalVolPricingResult(
             price=price,
             method_name=self.chernoff.name,
             n_steps=n_steps,
