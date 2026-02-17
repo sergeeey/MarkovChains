@@ -59,3 +59,22 @@ class TestImpliedVol:
     def test_zero_price(self):
         iv = implied_volatility(0.0, 100, 200, 1.0, 0.05, "call")
         assert iv == pytest.approx(1e-6)
+
+    def test_newton_roundtrip(self):
+        sigma = 0.25
+        market = MarketParams(S=100, K=100, T=1.0, r=0.05, sigma=sigma)
+        price = bs_exact_price(market, "call")
+        iv = implied_volatility(price, 100, 100, 1.0, 0.05, "call", method="newton")
+        assert abs(iv - sigma) < 1e-6
+
+    def test_negative_price_raises(self):
+        with pytest.raises(ValueError, match="market_price must be >= 0"):
+            implied_volatility(-1.0, 100, 100, 1.0, 0.05, "call")
+
+    def test_price_above_upper_bound_raises(self):
+        with pytest.raises(ValueError, match="above theoretical upper bound"):
+            implied_volatility(150.0, 100, 100, 1.0, 0.05, "call")
+
+    def test_invalid_method_raises(self):
+        with pytest.raises(ValueError, match="method must be"):
+            implied_volatility(5.0, 100, 100, 1.0, 0.05, "call", method="bisect")
