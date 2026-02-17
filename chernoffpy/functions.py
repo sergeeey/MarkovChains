@@ -74,14 +74,14 @@ class PhysicalG(ChernoffFunction):
     """
 
     @property
-    def name(self):
+    def name(self) -> str:
         return "G(t) [order 1, physical]"
 
     @property
-    def order(self):
+    def order(self) -> int:
         return 1
 
-    def apply(self, f_values, x_grid, t):
+    def apply(self, f_values: np.ndarray, x_grid: np.ndarray, t: float) -> np.ndarray:
         if t == 0:
             return f_values.copy()
         shift = 2 * np.sqrt(t)
@@ -104,14 +104,14 @@ class PhysicalS(ChernoffFunction):
     """
 
     @property
-    def name(self):
+    def name(self) -> str:
         return "S(t) [order 2, physical]"
 
     @property
-    def order(self):
+    def order(self) -> int:
         return 2
 
-    def apply(self, f_values, x_grid, t):
+    def apply(self, f_values: np.ndarray, x_grid: np.ndarray, t: float) -> np.ndarray:
         if t == 0:
             return f_values.copy()
         shift = np.sqrt(6 * t)
@@ -140,7 +140,7 @@ class _FourierChernoff(ChernoffFunction):
     def multiplier(self, xi_sq: np.ndarray, t: float) -> np.ndarray:
         """Fourier multiplier r(-t*xi²) for each frequency."""
 
-    def apply(self, f_values, x_grid, t):
+    def apply(self, f_values: np.ndarray, x_grid: np.ndarray, t: float) -> np.ndarray:
         if t == 0:
             return f_values.copy()
         N = len(f_values)
@@ -164,14 +164,14 @@ class BackwardEuler(_FourierChernoff):
     """
 
     @property
-    def name(self):
+    def name(self) -> str:
         return "Backward Euler [order 1, Padé [0/1]]"
 
     @property
-    def order(self):
+    def order(self) -> int:
         return 1
 
-    def multiplier(self, xi_sq, t):
+    def multiplier(self, xi_sq: np.ndarray, t: float) -> np.ndarray:
         return 1.0 / (1.0 + t * xi_sq)
 
 
@@ -187,14 +187,14 @@ class CrankNicolson(_FourierChernoff):
     """
 
     @property
-    def name(self):
+    def name(self) -> str:
         return "Crank-Nicolson [order 2, Padé [1/1]]"
 
     @property
-    def order(self):
+    def order(self) -> int:
         return 2
 
-    def multiplier(self, xi_sq, t):
+    def multiplier(self, xi_sq: np.ndarray, t: float) -> np.ndarray:
         u = t * xi_sq
         return (1.0 - u / 2) / (1.0 + u / 2)
 
@@ -237,14 +237,14 @@ class PadeChernoff(_FourierChernoff):
             )
 
     @property
-    def name(self):
+    def name(self) -> str:
         return f"Padé [{self.m}/{self.n}] [order {self.order}]"
 
     @property
-    def order(self):
+    def order(self) -> int:
         return self.m + self.n
 
-    def multiplier(self, xi_sq, t):
+    def multiplier(self, xi_sq: np.ndarray, t: float) -> np.ndarray:
         z = -t * xi_sq  # z = tA in Fourier space (A -> -xi²)
         p = np.polyval(self._p_coeffs[::-1], z)  # numerator
         q = np.polyval(self._q_coeffs[::-1], z)  # denominator

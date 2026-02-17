@@ -385,16 +385,25 @@ def benchmark_certified():
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def benchmark_double_barrier():
-    """Double barrier options comparison."""
+    """Double barrier options comparison.
+
+    NOTE: DoubleBarrierDSTPricer uses n_internal = max(n_steps, 10*sqrt(N)).
+    With N=2048 floor ≈ 452. All n_steps must exceed floor to avoid
+    degenerate identical-price rows.
+    """
     print("  Setting up Double Barrier benchmark...")
-    
+    # DST floor = 10*sqrt(N) ≈ 452 for N=2048
+    # All n_steps must exceed floor; otherwise n_internal = floor (plateau)
+    print("  Using GridConfig(N=2048) with n_steps > 452 (floor=10*sqrt(N))")
+
     market = MarketParams(S=100, K=100, T=1.0, r=0.05, sigma=0.20)
+    grid_config = GridConfig(N=2048, L=10.0, taper_width=2.0)
     bp = DoubleBarrierParams(
         lower_barrier=90,
         upper_barrier=120,
         barrier_type="double_knock_out",
     )
-    
+
     # Exact price using analytical formula
     try:
         exact = double_barrier_analytical(
@@ -405,12 +414,14 @@ def benchmark_double_barrier():
     except Exception as e:
         print(f"  Warning: Could not compute exact price: {e}")
         exact = None
-    
+
     results = []
-    
-    # ChernoffPy DST
-    pricer = DoubleBarrierDSTPricer(CrankNicolson())
-    for n in [20, 50, 100, 200]:
+
+    # ChernoffPy DST with custom grid_config
+    # DST floor = 10*sqrt(N) ≈ 452 for N=2048
+    # All n_steps > 452 to avoid degenerate identical-price rows
+    pricer = DoubleBarrierDSTPricer(CrankNicolson(), grid_config)
+    for n in [500, 700, 900, 1200]:
         m = measure(pricer.price, market, bp, n, "call", n_runs=10)
         if exact:
             error_pct = abs(m["price"].price - exact) / max(exact, 1e-10) * 100

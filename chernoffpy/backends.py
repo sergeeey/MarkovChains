@@ -5,6 +5,9 @@ CuPy is optional. The default backend is NumPy.
 
 from __future__ import annotations
 
+from types import ModuleType
+from typing import Any
+
 import numpy as np
 
 try:
@@ -16,7 +19,7 @@ except ImportError:  # pragma: no cover - depends on environment
     HAS_CUPY = False
 
 
-def get_backend(name: str = "numpy"):
+def get_backend(name: str = "numpy") -> ModuleType:
     """Return array backend module with NumPy-like API."""
     normalized = name.lower()
     if normalized == "cupy":
@@ -28,14 +31,14 @@ def get_backend(name: str = "numpy"):
     return np
 
 
-def to_backend(arr, xp):
+def to_backend(arr: Any, xp: ModuleType) -> np.ndarray:
     """Convert array-like to target backend module."""
     if xp is np:
         return arr if isinstance(arr, np.ndarray) else np.asarray(arr)
     return xp.asarray(arr)
 
 
-def to_numpy(arr):
+def to_numpy(arr: Any) -> np.ndarray:
     """Convert array-like to NumPy ndarray."""
     if isinstance(arr, np.ndarray):
         return arr

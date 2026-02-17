@@ -117,4 +117,11 @@ __all__ = [
     "certificate_to_report",
     "pricing_result_to_report",
     "barrier_result_to_report",
+    # Transform helpers
+    "bs_to_heat_initial",
+    "compute_transform_params",
+    "extract_price_at_spot",
+    "heat_to_bs_price",
+    "make_grid",
+    "make_taper",
 ]

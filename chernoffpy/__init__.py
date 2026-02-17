@@ -36,3 +36,36 @@ from chernoffpy.certified import (
 
 __version__ = "0.1.0"
 __author__ = "Built on the theory of I.D. Remizov, O.E. Galkin et al."
+
+__all__ = [
+    # Chernoff functions
+    "ChernoffFunction",
+    "BackwardEuler",
+    "CrankNicolson",
+    "PadeChernoff",
+    "PhysicalG",
+    "PhysicalS",
+    # Semigroups
+    "HeatSemigroup",
+    # Analysis
+    "compute_errors",
+    "convergence_rate",
+    "convergence_table",
+    # Acceleration
+    "HAS_NUMBA",
+    "mixed_deriv_step",
+    "thomas_solve_batch",
+    # Backends
+    "HAS_CUPY",
+    "get_backend",
+    "to_backend",
+    "to_numpy",
+    # Certified bounds
+    "CertifiedBound",
+    "ChernoffOrder",
+    "PayoffRegularity",
+    "compute_certified_bound",
+    "effective_order",
+    "n_steps_for_tolerance",
+    "verify_convergence_order",
+]
