@@ -25,4 +25,8 @@ Thumbs.db
 
 .idea/
 .vscode/
+.cursor/
 *.code-workspace
+
+.env
+.env.*
