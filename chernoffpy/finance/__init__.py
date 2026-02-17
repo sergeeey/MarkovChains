@@ -48,6 +48,8 @@ from .bates import BatesPricer
 from .bates_analytical import bates_price
 from .adaptive_grid import (
     compute_grid_quality,
+    estimate_free_boundary,
+    make_sinh_grid,
     make_stretched_config,
     snap_grid_to_barrier,
     snap_grid_to_double_barrier,
@@ -97,6 +99,8 @@ __all__ = [
     "snap_grid_to_barrier",
     "snap_grid_to_double_barrier",
     "make_stretched_config",
+    "make_sinh_grid",
+    "estimate_free_boundary",
     "compute_grid_quality",
     # Phase 3+
     "LocalVolPricer",
@@ -126,3 +130,4 @@ __all__ = [
     "make_grid",
     "make_taper",
 ]
+

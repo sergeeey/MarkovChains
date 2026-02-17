@@ -118,6 +118,60 @@ def make_stretched_grid(config: GridConfig) -> np.ndarray:
     return np.asarray(x, dtype=float)
 
 
+def make_sinh_grid(
+    N: int,
+    L: float,
+    center: float = 0.0,
+    alpha: float = 0.3,
+) -> np.ndarray:
+    """Build a monotone grid on [-L, L] with concentration near center."""
+    if N < 2:
+        raise ValueError(f"N must be >= 2, got {N}")
+    if L <= 0:
+        raise ValueError(f"L must be positive, got {L}")
+    if alpha <= 0:
+        raise ValueError(f"alpha must be positive, got {alpha}")
+
+    xi = np.linspace(-1.0, 1.0, N)
+    c = float(np.clip(center / L, -0.95, 0.95))
+
+    y_raw = np.sinh(alpha * (xi - c))
+    y_l = np.sinh(alpha * (-1.0 - c))
+    y_r = np.sinh(alpha * (1.0 - c))
+    y = -1.0 + 2.0 * (y_raw - y_l) / max(y_r - y_l, 1e-14)
+
+    x = L * y
+    return np.asarray(x, dtype=float)
+
+
+def estimate_free_boundary(market, option_type: str = "put") -> float:
+    """Estimate log-free-boundary x* = ln(S*/K) for adaptive American pricing."""
+    r_eff = float(market.r - getattr(market, "q", 0.0))
+    sigma = float(market.sigma)
+    T = float(market.T)
+
+    if option_type == "put":
+        if r_eff <= 1e-12:
+            return -0.3
+        denom = r_eff + 0.5 * sigma * sigma
+        x_inf = np.log(max(r_eff, 1e-12) / max(denom, 1e-12))
+        correction = min(0.9, np.exp(-r_eff * T) * 0.5)
+        x_est = x_inf * (1.0 - correction)
+        return float(np.clip(x_est, -2.0, -1e-6))
+
+    if option_type == "call":
+        q = float(getattr(market, "q", 0.0))
+        if q <= 1e-12:
+            return 1.0
+        denom = q + 0.5 * sigma * sigma
+        x_inf = np.log(max(q, 1e-12) / max(denom, 1e-12))
+        correction = min(0.9, np.exp(-q * T) * 0.5)
+        x_est = -x_inf * (1.0 - correction)
+        return float(np.clip(x_est, 1e-6, 2.0))
+
+    raise ValueError(f"option_type must be 'put' or 'call', got '{option_type}'")
+
+
 def compute_grid_quality(x_grid: np.ndarray, points_of_interest: list[float]) -> dict:
     """Return basic mesh diagnostics and snapping errors."""
     x = np.asarray(x_grid, dtype=float)
@@ -138,3 +192,4 @@ def compute_grid_quality(x_grid: np.ndarray, points_of_interest: list[float]) ->
         "dx_ratio": ratio,
         "snap_errors": snap_errors,
     }
+

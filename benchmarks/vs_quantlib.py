@@ -230,22 +230,22 @@ def benchmark_barrier():
 def benchmark_american():
     """
     ChernoffPy vs QuantLib FDM для American put.
-    
+
     Exact = CRR binomial n=50000 (quasi-exact).
     """
     print("  Setting up American benchmark...")
-    
+
     market = MarketParams(S=100, K=100, T=1.0, r=0.05, sigma=0.20)
-    
+
     # Use QuantLib CRR as quasi-exact reference
     print("  Computing quasi-exact American price (CRR n=50000)...")
     exact = ql_american_crr(100, 100, 1.0, 0.05, 0.20, "put", n=50000)
     print(f"  Quasi-exact price: {exact:.6f}")
-    
+
     results = []
-    
-    # ChernoffPy
-    pricer = AmericanPricer(CrankNicolson())
+
+    # ChernoffPy (uniform)
+    pricer = AmericanPricer(CrankNicolson(), adaptive=False)
     for n in [20, 50, 100, 200]:
         m = measure(pricer.price, market, n, "put", n_runs=10)
         error_pct = abs(m["price"].price - exact) / exact * 100
@@ -256,7 +256,20 @@ def benchmark_american():
             "error_pct": error_pct,
             "time_ms": m["time_ms"],
         })
-    
+
+    # ChernoffPy (adaptive two-grid)
+    pricer_adapt = AmericanPricer(CrankNicolson(), adaptive=True)
+    for n in [20, 50, 100, 200]:
+        m = measure(pricer_adapt.price, market, n, "put", n_runs=10)
+        error_pct = abs(m["price"].price - exact) / exact * 100
+        results.append({
+            "method": "ChernoffPy CN (adaptive)",
+            "n_steps": n,
+            "price": m["price"].price,
+            "error_pct": error_pct,
+            "time_ms": m["time_ms"],
+        })
+
     # QuantLib FDM
     for n_time in [50, 100, 200, 500]:
         for n_spot in [200, 500]:
@@ -273,10 +286,8 @@ def benchmark_american():
                 "error_pct": error_pct,
                 "time_ms": m["time_ms"],
             })
-    
+
     return results
-
-
 # ═══════════════════════════════════════════════════════════════════════════════
 # Table 4: Heston
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -587,3 +598,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
