@@ -18,8 +18,8 @@ This report presents corrected numerical comparisons. Previous versions had bugs
 | **European** | 0.015% @ n=50 | 0.017% @ n=50 | ✅ Parity |
 | **Barrier B=99** | **0.009%** @ n≥200 | 0.0001% @ n=1000 | QL more accurate, DST stable |
 | **Barrier B=120** | **0.05%** @ n≥200 | 0.20% @ n=1000 | ✅ DST wins! |
-| **American (uniform)** | 0.19% @ n=50 | **0.016%** @ n=50 | QL better (PSOR) |
-| **American (adaptive)** | **0.006%** @ n=50 | 0.016% @ n=50 | ✅ **ChernoffPy wins!** |
+| **American (uniform)** | 0.21% @ n=50 | **0.016%** @ n=50 | QL better (PSOR) |
+| **American (adaptive)** | **0.004%** @ n=50 | 0.016% @ n=50 | ✅ **ChernoffPy wins!** |
 | **Heston** | 0.71% @ 256×64, 71ms | 0.012% @ 200×100, 86ms | Same speed, QL 59× more accurate |
 | **Certified** | ✅ Yes (2× ratio) | ❌ N/A | **Unique to ChernoffPy** |
 
@@ -101,11 +101,11 @@ DST provides consistent accuracy without grid tuning. QuantLib requires careful 
 
 | Method | n | Error (%) | Time (ms) |
 |--------|---|-----------|-----------|
-| ChernoffPy CN (uniform) | 50 | 0.193 | 4.5 |
-| ChernoffPy CN (adaptive) | 50 | **0.006** | ~5 |
-| QuantLib FDM (500pts) | 50 | 0.016 | 1.0 |
+| ChernoffPy CN (uniform) | 50 | 0.215 | 2.0 |
+| ChernoffPy CN (adaptive) | 50 | **0.004** | 5.7 |
+| QuantLib FDM (500pts) | 50 | 0.016 | 0.9 |
 
-✅ **Conclusion:** Adaptive mode achieves **0.006% error** — **2.7× more accurate** than QuantLib (0.016%) and **32× more accurate** than uniform mode (0.193%)!
+✅ **Conclusion:** Adaptive mode achieves **0.004% error** — **4× more accurate** than QuantLib (0.016%) and **54× more accurate** than uniform mode (0.215%)!
 
 ---
 
@@ -141,7 +141,7 @@ DST provides consistent accuracy without grid tuning. QuantLib requires careful 
 1. **Certified Bounds:** Unique, provably valid, 2× tightness
 2. **European:** Accuracy parity with QuantLib
 3. **Barrier (UOC):** Better than QuantLib (0.05% vs 0.22%)
-4. **American (adaptive):** **2.7× more accurate** than QuantLib (0.006% vs 0.016%)
+4. **American (adaptive):** **4× more accurate** than QuantLib (0.004% vs 0.016%)
 5. **Python+Numba:** Wall-clock parity with C++
 
 ### ⚠️ Honest Gaps
@@ -157,7 +157,7 @@ DST provides consistent accuracy without grid tuning. QuantLib requires careful 
 | "European: accuracy parity" | Table 1 | ✅ High |
 | "Barrier DST: stable, Gibbs-free" | DOC B=99 flat line | ✅ High |
 | "UOC: DST outperforms FDM" | 0.05% vs 0.22% | ✅ High |
-| **"American adaptive: 2.7× more accurate"** | **0.006% vs 0.016%** | ✅ **High** |
+| **"American adaptive: 4× more accurate"** | **0.004% vs 0.016%** | ✅ **High** |
 | "Python+Numba ≈ C++ speed" | 71ms vs 86ms | ✅ High |
 | "DOC near-barrier gap acknowledged" | 0.009% vs 0.0001% | ✅ Honest |
 
@@ -181,9 +181,13 @@ python benchmarks/plot_results.py
 
 ## Changelog
 
+### v5 (Benchmark Config Fix)
+- Fixed: American benchmark uses GridConfig(N=1024, L=8.0) matching test suite
+- Result: **0.004% error** — 4× better than QuantLib!
+
 ### v4 (American Adaptive)
 - Added: AmericanPricer with adaptive=True (two-grid sinh-stretching)
-- Result: **0.006% error** — 2.7× better than QuantLib!
+- Result: Initial 0.006% measurement
 
 ### v3 (Final)
 - Fixed: GridConfig N=2048 (was N=256)

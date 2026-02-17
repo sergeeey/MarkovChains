@@ -244,8 +244,11 @@ def benchmark_american():
 
     results = []
 
+    # Grid config optimized for American pricing (matches test suite)
+    american_cfg = GridConfig(N=1024, L=8.0, taper_width=2.0)
+
     # ChernoffPy (uniform)
-    pricer = AmericanPricer(CrankNicolson(), adaptive=False)
+    pricer = AmericanPricer(CrankNicolson(), american_cfg, adaptive=False)
     for n in [20, 50, 100, 200]:
         m = measure(pricer.price, market, n, "put", n_runs=10)
         error_pct = abs(m["price"].price - exact) / exact * 100
@@ -258,7 +261,7 @@ def benchmark_american():
         })
 
     # ChernoffPy (adaptive two-grid)
-    pricer_adapt = AmericanPricer(CrankNicolson(), adaptive=True)
+    pricer_adapt = AmericanPricer(CrankNicolson(), american_cfg, adaptive=True)
     for n in [20, 50, 100, 200]:
         m = measure(pricer_adapt.price, market, n, "put", n_runs=10)
         error_pct = abs(m["price"].price - exact) / exact * 100
