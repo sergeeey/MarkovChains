@@ -67,7 +67,7 @@ class TestBatesPricing:
     def test_atm_call_vs_analytical(self, grid: HestonGridConfig, base_params: BatesParams):
         r = BatesPricer(CrankNicolson(), grid).price(base_params, n_steps=50, option_type="call")
         ref = bates_price(**base_params.__dict__, option_type="call")
-        assert abs(r.price - ref) / max(abs(ref), 1e-8) < 2.0
+        assert abs(r.price - ref) / max(abs(ref), 1e-8) < 0.15
 
     def test_atm_put_vs_analytical(self, grid: HestonGridConfig, base_params: BatesParams):
         r = BatesPricer(CrankNicolson(), grid).price(base_params, n_steps=50, option_type="put")
@@ -75,7 +75,7 @@ class TestBatesPricing:
         assert np.isfinite(r.price)
         assert r.price >= 0.0
         if ref > 1e-8:
-            assert abs(r.price - ref) / ref < 2.0
+            assert abs(r.price - ref) / ref < 0.15
 
     def test_high_jump_intensity(self, grid: HestonGridConfig, base_params: BatesParams):
         p = BatesParams(**{**base_params.__dict__, "lambda_j": 5.0})

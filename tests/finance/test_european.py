@@ -86,7 +86,7 @@ class TestArbitrageConstraints:
         call = cn_pricer.price(atm_market, N_STEPS, "call").price
         put = cn_pricer.price(atm_market, N_STEPS, "put").price
         parity = atm_market.S - atm_market.K * np.exp(-atm_market.r * atm_market.T)
-        assert call - put == pytest.approx(parity, abs=0.15)
+        assert call - put == pytest.approx(parity, abs=0.01)
 
     def test_nonnegative_price(self, cn_pricer, atm_market):
         """Option prices must be non-negative."""
@@ -151,8 +151,8 @@ class TestSpecialCases:
         pricer = EuropeanPricer(CrankNicolson(), default_grid)
         result = pricer.price(high_vol_market, N_STEPS, "call")
         bs = bs_exact_price(high_vol_market, "call")
-        # High-volatility edge case: tolerance is intentionally wider than ATM tests.
-        assert result.price == pytest.approx(bs, rel=0.03, abs=0.5)
+        # High-volatility edge case: tolerance wider than ATM but still meaningful.
+        assert result.price == pytest.approx(bs, rel=0.01, abs=0.2)
 
     def test_short_expiry(self, short_expiry_market, default_grid):
         """Pricing with T=1 week works."""
