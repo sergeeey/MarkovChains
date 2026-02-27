@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import warnings
+
 import numpy as np
 
 from .adaptive_grid import estimate_free_boundary, make_sinh_grid
@@ -49,6 +51,21 @@ class AmericanPricer:
             raise ValueError(f"option_type must be 'call' or 'put', got '{option_type}'")
         if n_steps < 1:
             raise ValueError(f"n_steps must be >= 1, got {n_steps}")
+
+        # KNOWN LIMITATION: absolute (cash) dividends + call produce incorrect prices.
+        # The heat-space interpolation shift for absolute dividends assumes the payoff
+        # is monotone decreasing in S (put-like). For calls, the projection onto the
+        # early-exercise boundary becomes inconsistent, leading to prices far above
+        # the true value (observed: ~$148 vs expected ~$9).
+        # Use proportional=True in DividendSchedule for call options.
+        if option_type == "call" and dividends is not None and not dividends.proportional:
+            warnings.warn(
+                "AmericanPricer: call options with absolute (cash) dividends produce "
+                "incorrect results due to a known limitation in the heat-space dividend "
+                "interpolation. Use proportional=True in DividendSchedule instead.",
+                UserWarning,
+                stacklevel=2,
+            )
 
         if self.adaptive:
             return self._price_adaptive(
