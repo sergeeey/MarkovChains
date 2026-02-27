@@ -58,6 +58,7 @@ nav:
     - Certified: api/certified.md
   - Theory: theory.md
   - Architecture: architecture.md
+  - Release Guide: release-guide.md
 
 markdown_extensions:
   - admonition
