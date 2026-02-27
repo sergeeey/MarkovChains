@@ -57,6 +57,7 @@ nav:
     - Finance: api/finance.md
     - Certified: api/certified.md
   - Theory: theory.md
+  - Architecture: architecture.md
 
 markdown_extensions:
   - admonition
