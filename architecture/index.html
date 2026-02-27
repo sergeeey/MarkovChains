@@ -1,0 +1,2194 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Financial derivatives pricing via Chernoff operator splitting with certified error bounds">
+      
+      
+      
+        <link rel="canonical" href="https://sergeeey.github.io/MarkovChains/architecture/">
+      
+      
+        <link rel="prev" href="../theory/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Architecture - ChernoffPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chernoffpy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ChernoffPy" class="md-header__button md-logo" aria-label="ChernoffPy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ChernoffPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sergeeey/MarkovChains" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sergeeey/MarkovChains
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../user-guide/choosing-pricer/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/functions/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../theory/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Theory
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ChernoffPy" class="md-nav__button md-logo" aria-label="ChernoffPy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ChernoffPy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sergeeey/MarkovChains" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sergeeey/MarkovChains
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/choosing-pricer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing a Pricer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/european/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    European Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/barriers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Barrier Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/american/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    American Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/heston-bates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heston & Bates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/certified-bounds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certified Bounds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core (functions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Finance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/certified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certified
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Содержание
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Назначение системы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Компонентная архитектура
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Компонентная архитектура">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Слои и правило зависимостей
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Математическое ядро
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Математическое ядро">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Формула произведений Чернова
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Реализованные схемы Чернова
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Подстановка Уилмотта
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Сертифицированные границы ошибки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поток данных при ценообразовании
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зависимости и окружение
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Зависимости и окружение">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Обязательные зависимости
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Опциональные расширения
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Требования к Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Бэкенды и ускорение
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Бэкенды и ускорение">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backendspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архитектура бэкенда (backends.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numba-jit-accelpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numba JIT (accel.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ключевые архитектурные решения
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ключевые архитектурные решения">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adr-01-chernofffunction-abc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-01: ChernoffFunction как ABC, не функция
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-02-dst-fft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-02: DST вместо FFT для барьерных опционов
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-03: Подстановка Уилмотта как явный шаг
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-04-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-04: Сертифицированная граница как часть публичного API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-05: Раннее исполнение через проекцию, не через сетку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD и качество
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD и качество">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-githubworkflowsciyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline (.github/workflows/ci.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метрики качества (подтверждённые)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ограничения системы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пробелы и TODO
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Содержание
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Назначение системы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Компонентная архитектура
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Компонентная архитектура">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Слои и правило зависимостей
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Математическое ядро
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Математическое ядро">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Формула произведений Чернова
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Реализованные схемы Чернова
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Подстановка Уилмотта
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Сертифицированные границы ошибки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поток данных при ценообразовании
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зависимости и окружение
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Зависимости и окружение">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Обязательные зависимости
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Опциональные расширения
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Требования к Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Бэкенды и ускорение
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Бэкенды и ускорение">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backendspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архитектура бэкенда (backends.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numba-jit-accelpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numba JIT (accel.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ключевые архитектурные решения
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ключевые архитектурные решения">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adr-01-chernofffunction-abc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-01: ChernoffFunction как ABC, не функция
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-02-dst-fft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-02: DST вместо FFT для барьерных опционов
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-03: Подстановка Уилмотта как явный шаг
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-04-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-04: Сертифицированная граница как часть публичного API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adr-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-05: Раннее исполнение через проекцию, не через сетку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD и качество
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD и качество">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-githubworkflowsciyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline (.github/workflows/ci.yml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Метрики качества (подтверждённые)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ограничения системы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пробелы и TODO
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chernoffpy">Архитектурный документ: ChernoffPy</h1>
+<p><strong>Тип документа:</strong> Architecture Overview
+<strong>Проект:</strong> ChernoffPy v0.1.0
+<strong>Тип системы:</strong> Numerical Computing Library (Python)
+<strong>Окружение:</strong> Production (PyPI-ready, MIT License)
+<strong>Аудитория:</strong> разработчики библиотеки, квантовые аналитики, исследователи в области численных методов
+<strong>Дата:</strong> 2026-02-27
+<strong>Источник:</strong> кодовая база <code>chernoffpy/</code> (~5 400 строк), <code>pyproject.toml</code>, <code>.github/workflows/ci.yml</code></p>
+<hr />
+<h2 id="_1">Содержание</h2>
+<ol>
+<li><a href="#назначение-системы">Назначение системы</a></li>
+<li><a href="#компонентная-архитектура">Компонентная архитектура</a></li>
+<li><a href="#математическое-ядро">Математическое ядро</a></li>
+<li><a href="#поток-данных-при-ценообразовании">Поток данных при ценообразовании</a></li>
+<li><a href="#зависимости-и-окружение">Зависимости и окружение</a></li>
+<li><a href="#бэкенды-и-ускорение">Бэкенды и ускорение</a></li>
+<li><a href="#ключевые-архитектурные-решения">Ключевые архитектурные решения</a></li>
+<li><a href="#cicd-и-качество">CI/CD и качество</a></li>
+<li><a href="#ограничения-системы">Ограничения системы</a></li>
+<li><a href="#пробелы-и-todo">⚠️ Пробелы и TODO</a></li>
+</ol>
+<hr />
+<h2 id="_2">Назначение системы</h2>
+<p>ChernoffPy — первая open-source реализация метода оператор-полугрупп Чернова применительно к ценообразованию финансовых производных.</p>
+<p><strong>Что делает система:</strong></p>
+<ul>
+<li>Решает уравнение Блэка-Шоулза и его обобщения (Heston, Bates, local vol) через итеративное применение оператора Чернова вместо прямого интегрирования PDE</li>
+<li>Возвращает гарантированную верхнюю границу ошибки вместе с ценой — <code>CertifiedBound</code></li>
+<li>Поддерживает европейские, барьерные, американские опционы с единым интерфейсом</li>
+</ul>
+<p><strong>Что система не делает:</strong></p>
+<ul>
+<li>Не является торговой системой или API-сервисом</li>
+<li>Не реализует получение рыночных данных</li>
+<li>Не управляет портфелем</li>
+</ul>
+<hr />
+<h2 id="_3">Компонентная архитектура</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    subgraph &quot;Публичный API chernoffpy/&quot;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        F[functions.py\nChernoffFunction ABC\nBackwardEuler · CrankNicolson · PadeChernoff\nPhysicalG · PhysicalS]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        S[semigroups.py\nHeatSemigroup\nточное решение для сравнения]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        C[certified.py\nCertifiedBound\nn_steps_for_tolerance]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        AN[analysis.py\ncompute_errors\nconvergence_table]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    end
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    subgraph &quot;Finance layer chernoffpy/finance/&quot;
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        V[validation.py\nMarketParams · GridConfig\nPricingResult]
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        TR[transforms.py\nWilmott substitution\nBS ↔ Heat]
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        EU[european.py\nEuropeanPricer]
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        BR[barrier.py · barrier_dst.py\nBarrierFFTPricer · BarrierDSTPricer]
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        AM[american.py\nAmericanPricer\nearly exercise projection]
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        HE[heston.py · heston_fast.py\nHestonPricer · HestonFastPricer]
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        BA[bates.py\nBatesPricer]
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        LV[local_vol.py\nLocalVolPricer]
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        GR[greeks.py\nDelta · Gamma · Vega · Theta · Rho]
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        DIV[dividends.py\nDividendSchedule\nabsolute · proportional]
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        CAL[calibration.py\nLocalVolSurface]
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        AG[adaptive_grid.py\nадаптивная сетка вблизи барьера]
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    end
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    subgraph &quot;Ускорение&quot;
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        ACC[accel.py\nthomas_solve_batch\nmixed_deriv_step\n+ Numba JIT]
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        BE[backends.py\nNumPy / CuPy]
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    end
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    EU --&gt; F
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    EU --&gt; TR
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    EU --&gt; V
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    BR --&gt; F
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    BR --&gt; AG
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    AM --&gt; F
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    AM --&gt; DIV
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    HE --&gt; ACC
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    BA --&gt; HE
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    LV --&gt; CAL
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    GR --&gt; EU
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>    F --&gt; BE
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>    ACC --&gt; BE
+</code></pre></div>
+<h3 id="_4">Слои и правило зависимостей</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>chernoffpy/            ← математическое ядро (operators, semigroups, bounds)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    └── finance/       ← финансовые приложения (pricers, calibration, greeks)
+</code></pre></div>
+<p><strong>Инвариант:</strong> <code>finance/</code> импортирует из <code>chernoffpy/</code>, обратное запрещено. Нарушение этого правила разрушит возможность использовать ядро без финансовой надстройки.</p>
+<hr />
+<h2 id="_5">Математическое ядро</h2>
+<h3 id="_6">Формула произведений Чернова</h3>
+<p>Для оператора <code>L</code> (генератора полугруппы) и оператор-значной функции <code>F(t)</code>:</p>
+<div class="arithmatex">\[e^{tL}f = \lim_{n \to \infty} F\!\left(\frac{t}{n}\right)^n f\]</div>
+<p>Условия на <code>F</code>: <code>F(0) = I</code>, <code>‖F(t)‖ ≤ 1</code> (сжатие), <code>F'(0) = L</code>.</p>
+<p>По теореме Галкина-Ремизова (Israel J. Math., 2025): если <code>F</code> совпадает с <code>e^{tL}</code> по первым <code>k</code> производным при <code>t = 0</code>, то скорость сходимости — <code>O(1/nᵏ)</code>.</p>
+<h3 id="_7">Реализованные схемы Чернова</h3>
+<table>
+<thead>
+<tr>
+<th>Класс</th>
+<th>Порядок k</th>
+<th>Мультипликатор Фурье</th>
+<th>Стабильность</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BackwardEuler</code></td>
+<td>1</td>
+<td><code>1/(1 + tξ²)</code></td>
+<td>безусловно устойчива</td>
+</tr>
+<tr>
+<td><code>CrankNicolson</code></td>
+<td>2</td>
+<td><code>(1 - tξ²/2)/(1 + tξ²/2)</code></td>
+<td>безусловно устойчива</td>
+</tr>
+<tr>
+<td><code>PadeChernoff[p,q]</code></td>
+<td><code>p+q</code> (типично 3–6)</td>
+<td>Padé-аппроксимант <code>e^z</code></td>
+<td>A-устойчива при <code>q ≥ p</code></td>
+</tr>
+<tr>
+<td><code>PhysicalG</code></td>
+<td>1</td>
+<td>взвешенное среднее со сдвигами <code>±2√t</code></td>
+<td>устойчива</td>
+</tr>
+<tr>
+<td><code>PhysicalS</code></td>
+<td>2</td>
+<td>взвешенное среднее со сдвигами <code>±√(6t)</code></td>
+<td>устойчива</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>PadeChernoff</code> с <code>m &gt; n</code> (числитель выше знаменателя) генерирует <code>UserWarning</code>: схема не A-устойчива, усиливает высокие частоты.</p>
+</div>
+<h3 id="_8">Подстановка Уилмотта</h3>
+<p>Перевод уравнения Блэка-Шоулза в уравнение теплопроводности:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>x = ln(S/K)                  # логарифм спот/страйк
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>τ = σ² · T / 2               # масштабированное время
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>k = 2(r-q) / σ²             # безразмерная ставка
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>α = -(k-1)/2,  β = -(k+1)²/4
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>V(S,t) = K · exp(α·x + β·τ) · u(x, τ)
+</code></pre></div>
+<p>После подстановки: <code>∂u/∂τ = ∂²u/∂x²</code> — стандартное уравнение теплопроводности.</p>
+<p>Реализовано в <code>finance/transforms.py</code>: <code>compute_transform_params()</code>, <code>bs_to_heat_initial()</code>, <code>extract_price_at_spot()</code>.</p>
+<h3 id="_9">Сертифицированные границы ошибки</h3>
+<p><code>certified.py</code> реализует верхнюю оценку ошибки на основе теоремы Галкина-Ремизова:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">bound</span><span class="p">:</span> <span class="n">CertifiedBound</span> <span class="o">=</span> <span class="n">compute_certified_bound</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">chernoff</span><span class="o">=</span><span class="n">CrankNicolson</span><span class="p">(),</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">market</span><span class="o">=</span><span class="n">market</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">payoff_regularity</span><span class="o">=</span><span class="n">PayoffRegularity</span><span class="o">.</span><span class="n">LIPSCHITZ</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># bound.upper_bound — гарантированная граница в единицах цены</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># bound.is_tight — True если оценка считается практически точной</span>
+</code></pre></div>
+<p>Регулярность выплаты влияет на константу в оценке:</p>
+<ul>
+<li><code>SMOOTH</code> → наименьшая константа</li>
+<li><code>LIPSCHITZ</code> → стандартный ванильный опцион</li>
+<li><code>DISCONTINUOUS</code> → бинарные/барьерные опционы</li>
+</ul>
+<hr />
+<h2 id="_10">Поток данных при ценообразовании</h2>
+<p>На примере <code>EuropeanPricer.price()</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MarketParams(S, K, T, r, sigma)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>        │
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        ▼
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  GridConfig → make_grid(config) → x_grid [N точек]
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        │
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        ▼
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  compute_transform_params(market)
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  → k, α, β, τ_eff
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        │
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        ▼
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>  bs_to_heat_initial(x_grid, market, config, option_type)
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>  → u0 [начальное условие в пространстве теплопроводности]
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        │
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        ▼
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>  ChernoffFunction.compose(u0, x_grid, τ_eff, n_steps)
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>  = C(τ/n)^n u0  — n итераций оператора C
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>  → u_final
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        │
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        ▼
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>  extract_price_at_spot(u_final, x_grid, market)
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>  → price (скаляр)
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>        │
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        ▼
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>  PricingResult(price, certified_bound, bs_exact, fft_price, ...)
+</code></pre></div>
+<p>Для <strong>барьерных опционов</strong> (<code>BarrierDSTPricer</code>) добавляется шаг проецирования: после каждого применения <code>C(τ/n)</code> значения за барьером обнуляются. Это реализует граничное условие через проекцию, а не через изменение сетки.</p>
+<p>Для <strong>американских опционов</strong> (<code>AmericanPricer</code>) добавляется <code>max(u, payoff_intrinsic)</code> после каждого шага — проекция на множество допустимых значений раннего исполнения.</p>
+<hr />
+<h2 id="_11">Зависимости и окружение</h2>
+<h3 id="_12">Обязательные зависимости</h3>
+<table>
+<thead>
+<tr>
+<th>Пакет</th>
+<th>Версия</th>
+<th>Использование</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>numpy</code></td>
+<td>≥ 1.24</td>
+<td>все численные операции, FFT, трёхдиагональные системы</td>
+</tr>
+<tr>
+<td><code>scipy</code></td>
+<td>≥ 1.10</td>
+<td><code>scipy.stats.norm</code> для BS-формулы, <code>scipy.optimize</code> для калибровки</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">Опциональные расширения</h3>
+<table>
+<thead>
+<tr>
+<th>Extra</th>
+<th>Пакеты</th>
+<th>Эффект</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fast</code></td>
+<td><code>numba ≥ 0.57</code></td>
+<td>JIT-компиляция <code>thomas_solve_batch</code> и <code>mixed_deriv_step</code> — ускорение Heston</td>
+</tr>
+<tr>
+<td><code>gpu</code></td>
+<td><code>cupy-cuda12x ≥ 12.0</code></td>
+<td>GPU-бэкенд через <code>get_backend("cupy")</code></td>
+</tr>
+<tr>
+<td><code>dev</code></td>
+<td><code>pytest ≥ 7.0</code>, <code>pytest-cov ≥ 4.0</code></td>
+<td>тесты и покрытие</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td><code>mkdocs ≥ 1.5</code>, <code>mkdocs-material ≥ 9.0</code>, <code>mkdocstrings[python] ≥ 0.24</code></td>
+<td>сборка документационного сайта</td>
+</tr>
+</tbody>
+</table>
+<h3 id="python">Требования к Python</h3>
+<p><code>requires-python = "&gt;=3.10"</code>. CI тестирует 3.10, 3.11, 3.12, 3.13 на Ubuntu и Windows.</p>
+<hr />
+<h2 id="_14">Бэкенды и ускорение</h2>
+<h3 id="backendspy">Архитектура бэкенда (<code>backends.py</code>)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">xp</span> <span class="o">=</span> <span class="n">get_backend</span><span class="p">(</span><span class="s2">&quot;numpy&quot;</span><span class="p">)</span>   <span class="c1"># или &quot;cupy&quot;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">arr</span> <span class="o">=</span> <span class="n">to_backend</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xp</span><span class="p">)</span>  <span class="c1"># конвертация в целевой бэкенд</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">result</span> <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>      <span class="c1"># обратно в NumPy</span>
+</code></pre></div>
+<p>Переключение бэкенда не затрагивает код пользователя — все операции проходят через <code>xp.*</code>.</p>
+<h3 id="numba-jit-accelpy">Numba JIT (<code>accel.py</code>)</h3>
+<p>Два критических ядра ускоряются через <code>@njit(parallel=True)</code> при наличии Numba:</p>
+<table>
+<thead>
+<tr>
+<th>Функция</th>
+<th>Назначение</th>
+<th>Где используется</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>thomas_solve_batch()</code></td>
+<td>Трёхдиагональные системы для v-шагов</td>
+<td><code>HestonFastPricer</code>, <code>BatesPricer</code></td>
+</tr>
+<tr>
+<td><code>mixed_deriv_step()</code></td>
+<td>Смешанная производная <code>∂²V/∂S∂v</code></td>
+<td><code>HestonPricer</code></td>
+</tr>
+</tbody>
+</table>
+<p>При отсутствии Numba — автоматический fallback на NumPy-реализацию. <code>HAS_NUMBA</code> и <code>HAS_CUPY</code> — публичные флаги для проверки среды.</p>
+<hr />
+<h2 id="_15">Ключевые архитектурные решения</h2>
+<h3 id="adr-01-chernofffunction-abc">ADR-01: ChernoffFunction как ABC, не функция</h3>
+<p><strong>Решение:</strong> оператор Чернова — абстрактный класс с методом <code>apply()</code>, а не lambda или callable.</p>
+<p><strong>Причина:</strong> позволяет хранить состояние схемы (порядок, параметры Padé), передавать в <code>certified.py</code> для автовыбора константы, использовать в рефлексии (<code>chernoff.order</code>, <code>chernoff.name</code>).</p>
+<p><strong>Альтернатива:</strong> словарь <code>{"order": 2, "fn": lambda f, x, t: ...}</code> — отброшена из-за потери типобезопасности.</p>
+<hr />
+<h3 id="adr-02-dst-fft">ADR-02: DST вместо FFT для барьерных опционов</h3>
+<p><strong>Решение:</strong> <code>BarrierDSTPricer</code> использует дискретное синусное преобразование (DST-I); <code>BarrierFFTPricer</code> — стандартное FFT.</p>
+<p><strong>Причина:</strong> FFT предполагает периодические граничные условия → эффект Гиббса у барьера. DST-I ортогонален к нулевым граничным условиям → нет осцилляций, нет Гиббса, точнее для барьерных опционов.</p>
+<p><strong>Цена:</strong> DST медленнее FFT примерно в 1.5–2x. Компромисс обоснован для точности вблизи барьера.</p>
+<hr />
+<h3 id="adr-03">ADR-03: Подстановка Уилмотта как явный шаг</h3>
+<p><strong>Решение:</strong> <code>transforms.py</code> — отдельный модуль, видимый пользователю и тестируемый независимо.</p>
+<p><strong>Причина:</strong> подстановка — источник большинства числовых ошибок (переполнение <code>exp</code>, некорректный выбор <code>α</code>). Явный модуль позволяет тестировать только трансформацию без всего пайплайна и заменять её при необходимости.</p>
+<hr />
+<h3 id="adr-04-api">ADR-04: Сертифицированная граница как часть публичного API</h3>
+<p><strong>Решение:</strong> <code>PricingResult</code> всегда содержит <code>ValidationCertificate</code>; <code>compute_certified_bound()</code> доступна напрямую.</p>
+<p><strong>Причина:</strong> основное научное достижение библиотеки — гарантированная ошибка. Скрывать её во внутренней реализации означало бы потерять главное преимущество перед Monte Carlo и конечными разностями.</p>
+<hr />
+<h3 id="adr-05">ADR-05: Раннее исполнение через проекцию, не через сетку</h3>
+<p><strong>Решение:</strong> <code>AmericanPricer</code> применяет <code>u = max(u, intrinsic_payoff)</code> после каждого шага Чернова.</p>
+<p><strong>Причина:</strong> изменение сетки при каждом шаге (как в классических ADI-методах) несовместимо с формулой <code>C(t/n)^n</code> — операторы должны действовать на одном и том же пространстве. Проекция сохраняет пространство неизменным.</p>
+<hr />
+<h2 id="cicd">CI/CD и качество</h2>
+<h3 id="pipeline-githubworkflowsciyml">Pipeline (<code>.github/workflows/ci.yml</code>)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>push/PR to main
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    │
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    ├── job: test (параллельно, 8 комбинаций)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    │   ├── ubuntu-latest × Python 3.10, 3.11, 3.12, 3.13
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    │   └── windows-latest × Python 3.10, 3.11, 3.12, 3.13
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    │   └── pytest --cov=chernoffpy --cov-fail-under=80
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    │
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    ├── job: test-numba (ubuntu, Python 3.11)
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    │   └── pip install -e &quot;.[fast,dev]&quot;
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    │   └── pytest (проверка Numba-пути)
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    │
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    ├── job: docs (только push в main, after test)
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    │   └── pip install -e &quot;.[docs]&quot;
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    │   └── mkdocs gh-deploy --force → gh-pages branch
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    │
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    └── job: publish (только теги v*.*.*, after test)
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>        └── python -m build
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>        └── pypa/gh-action-pypi-publish (OIDC Trusted Publisher)
+</code></pre></div>
+<h3 id="_16">Метрики качества (подтверждённые)</h3>
+<table>
+<thead>
+<tr>
+<th>Метрика</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тесты</td>
+<td>539 pass, 0 fail</td>
+</tr>
+<tr>
+<td>Покрытие</td>
+<td>≥ 80% (gate в CI)</td>
+</tr>
+<tr>
+<td>Платформы</td>
+<td>Linux, Windows</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>3.10 – 3.13</td>
+</tr>
+<tr>
+<td>Время suite</td>
+<td>~173 секунды (full matrix)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_17">Ограничения системы</h2>
+<table>
+<thead>
+<tr>
+<th>Ограничение</th>
+<th>Детали</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Граничные условия</strong></td>
+<td>Только нулевые (Dirichlet) через DST или периодические через FFT. Неограниченная область (Neumann) не реализована</td>
+</tr>
+<tr>
+<td><strong>Американский колл + абсолютные дивиденды</strong></td>
+<td>Даёт некорректные цены (~<span class="arithmatex">\(148 вместо ~\)</span>9). Использовать только пропорциональные дивиденды. При передаче абсолютных дивидендов с <code>option_type="call"</code> выбрасывается <code>UserWarning</code></td>
+</tr>
+<tr>
+<td><strong>Padé с m &gt; n</strong></td>
+<td>Не A-устойчив, вызывает расхождение на высоких частотах. Защита через <code>UserWarning</code>, не через <code>ValueError</code></td>
+</tr>
+<tr>
+<td><strong>Многоактивные опционы</strong></td>
+<td>Не реализованы (basket, spread)</td>
+</tr>
+<tr>
+<td><strong>Дискретное время</strong></td>
+<td>Нет опционов с дискретным мониторингом барьера</td>
+</tr>
+<tr>
+<td><strong>GPU-путь</strong></td>
+<td><code>backends.py</code> существует, но Finance-слой не адаптирован под CuPy (Heston, American используют NumPy напрямую)</td>
+</tr>
+<tr>
+<td><strong>Параллелизм</strong></td>
+<td><code>compose()</code> — последовательный цикл. Нет multi-threading для матрицы страйков/экспирий</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="todo">Пробелы и TODO</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Пробел</th>
+<th>Приоритет</th>
+<th>Где проверить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>PadeChernoff</code> с <code>m &gt; n</code> выдаёт Warning, но нет unit-теста на корректность Warning</td>
+<td>Средний</td>
+<td><code>chernoffpy/functions.py:236</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>GPU-бэкенд (<code>cupy</code>) не используется в Finance-слое — <code>HAS_CUPY</code> флаг существует, интеграции нет</td>
+<td>Средний</td>
+<td><code>backends.py</code>, <code>heston_fast.py</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>__version__ = "0.1.0"</code> — версия не синхронизирована с CHANGELOG.md через автоматику (нет <code>bumpversion</code>, <code>hatch</code>)</td>
+<td>Низкий</td>
+<td><code>chernoffpy/__init__.py</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>PhysicalG</code> и <code>PhysicalS</code> — нет ссылки на конкретную теорему из arXiv:2301.05284 в docstring, только общая ссылка</td>
+<td>Низкий</td>
+<td><code>chernoffpy/functions.py</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>adaptive_grid.py</code> не имеет unit-тестов на правильность сгущения вблизи барьера</td>
+<td>Средний</td>
+<td><code>tests/</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>LocalVolPricer</code> — точность не сертифицирована (нет <code>CertifiedBound</code>), только численная</td>
+<td>Средний</td>
+<td><code>finance/local_vol.py</code>, <code>finance/calibration.py</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>GitHub Pages включается вручную в Settings → Pages (одноразово)</td>
+<td>Низкий</td>
+<td>GitHub repository settings</td>
+</tr>
+<tr>
+<td>8</td>
+<td>PyPI Trusted Publisher требует одноразовой настройки на PyPI перед первым тегом</td>
+<td>Низкий</td>
+<td>pypi.org → Publishing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Документ сгенерирован по реальному исходному коду. Все утверждения имеют источник в файлах <code>chernoffpy/</code>. Разделы с ⚠️ требуют ручной проверки или доработки.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/sergeeey/MarkovChains" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
