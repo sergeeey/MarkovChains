@@ -1,0 +1,82 @@
+site_name: ChernoffPy
+site_description: Financial derivatives pricing via Chernoff operator splitting with certified error bounds
+site_url: https://sergeeey.github.io/MarkovChains/
+repo_url: https://github.com/sergeeey/MarkovChains
+repo_name: sergeeey/MarkovChains
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            show_source: true
+            show_root_heading: true
+            show_symbol_type_heading: true
+            members_order: source
+            separate_signature: true
+            show_signature_annotations: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - User Guide:
+    - Choosing a Pricer: user-guide/choosing-pricer.md
+    - European Options: user-guide/european.md
+    - Barrier Options: user-guide/barriers.md
+    - American Options: user-guide/american.md
+    - Heston & Bates: user-guide/heston-bates.md
+    - Certified Bounds: user-guide/certified-bounds.md
+  - API Reference:
+    - Core (functions): api/functions.md
+    - Finance: api/finance.md
+    - Certified: api/certified.md
+  - Theory: theory.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+  - tables
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sergeeey/MarkovChains
