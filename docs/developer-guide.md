@@ -113,7 +113,7 @@ MarketParams → Wilmott substitution → u0 (heat space)
 
 ## 7. Как выпустить релиз
 
-Полная инструкция: [`docs/release-guide.md`](docs/release-guide.md).
+Полная инструкция: [`release-guide.md`](release-guide.md).
 
 Кратко:
 ```bash
@@ -181,15 +181,16 @@ pytest tests/ -k "barrier" -v
 ```
 ChernoffPy/
 ├── README.md                    Обзор, badges, быстрый старт, decision guide
-├── CHANGELOG.md                 История версий
-├── CONTRIBUTING.md              Как контрибьютить (setup, style, PR process)
-├── DEVELOPER_GUIDE.md           ← этот файл: онбординг за 30 минут
+├── CONTRIBUTING.md              Стаб → docs/contributing.md (для GitHub баннера)
 ├── docs/
 │   ├── index.md                 Главная MkDocs
 │   ├── getting-started.md       Установка, первые 5 примеров
 │   ├── architecture.md          Архитектура, ADR, CI/CD, ограничения, TODO
 │   ├── theory.md                Математика: формула Чернова, Уилмотт, ссылки
+│   ├── developer-guide.md       ← этот файл: онбординг за 30 минут
+│   ├── contributing.md          Как контрибьютить (setup, style, PR process)
 │   ├── release-guide.md         Как выпускать релизы
+│   ├── changelog.md             История версий
 │   ├── user-guide/
 │   │   ├── choosing-pricer.md   Decision guide (когда что использовать)
 │   │   ├── european.md

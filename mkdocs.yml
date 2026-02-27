@@ -58,7 +58,11 @@ nav:
     - Certified: api/certified.md
   - Theory: theory.md
   - Architecture: architecture.md
-  - Release Guide: release-guide.md
+  - For Contributors:
+    - Developer Guide: developer-guide.md
+    - Contributing: contributing.md
+    - Release Guide: release-guide.md
+    - Changelog: changelog.md
 
 markdown_extensions:
   - admonition
