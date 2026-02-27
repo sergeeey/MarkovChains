@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://sergeeey.github.io/MarkovChains/theory/">
+        <link rel="canonical" href="https://sergeeey.github.io/MarkovChains/developer-guide/">
       
       
-        <link rel="prev" href="../api/certified/">
+        <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../architecture/">
+        <link rel="next" href="../contributing/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Theory - ChernoffPy</title>
+        <title>Developer Guide - ChernoffPy</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematical-background" class="md-skip">
+        <a href="#chernoffpy" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Theory
+              Developer Guide
             
           </span>
         </div>
@@ -303,11 +303,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../theory/" class="md-tabs__link">
         
   
   
@@ -343,11 +341,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../developer-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -832,37 +832,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Theory
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
         
   
   
@@ -878,120 +851,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-chernoff-product-formula" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Chernoff product formula
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#connection-to-option-pricing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Connection to option pricing
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Connection to option pricing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#black-scholes-pde" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Black-Scholes PDE
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#wilmott-substitution-bs-heat-equation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wilmott substitution (BS → heat equation)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#chernoff-approximation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chernoff approximation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#certified-error-bounds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Certified error bounds
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#barrier-options-dst-vs-fft" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Barrier options: DST vs FFT
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1027,26 +886,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   
@@ -1064,7 +928,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1079,10 +943,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../developer-guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1098,6 +989,147 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Что это и зачем
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Развернуть локально за 5 минут
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Архитектура за 10 минут
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ключевые решения (почему так, а не иначе)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Известные проблемы (не трогать без понимания)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Как добавить новый приcer (пошагово)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Как выпустить релиз
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-cicd-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. CI/CD: что происходит при push
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Структура тестов
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-bus-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Контакты и Bus Factor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Карта всей документации
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1221,10 +1253,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-chernoff-product-formula" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Chernoff product formula
+        1. Что это и зачем
       
     </span>
   </a>
@@ -1232,60 +1264,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connection-to-option-pricing" class="md-nav__link">
+  <a href="#2-5" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Connection to option pricing
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Connection to option pricing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#black-scholes-pde" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Black-Scholes PDE
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#wilmott-substitution-bs-heat-equation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wilmott substitution (BS → heat equation)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#chernoff-approximation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chernoff approximation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#certified-error-bounds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Certified error bounds
+        2. Развернуть локально за 5 минут
       
     </span>
   </a>
@@ -1293,10 +1275,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#barrier-options-dst-vs-fft" class="md-nav__link">
+  <a href="#3-10" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Barrier options: DST vs FFT
+        3. Архитектура за 10 минут
       
     </span>
   </a>
@@ -1304,10 +1286,87 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        References
+        4. Ключевые решения (почему так, а не иначе)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Известные проблемы (не трогать без понимания)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Как добавить новый приcer (пошагово)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Как выпустить релиз
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-cicd-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. CI/CD: что происходит при push
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Структура тестов
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-bus-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Контакты и Bus Factor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Карта всей документации
       
     </span>
   </a>
@@ -1334,101 +1393,246 @@
   
 
 
-<h1 id="mathematical-background">Mathematical Background</h1>
-<h2 id="the-chernoff-product-formula">The Chernoff product formula</h2>
-<p>The core idea behind ChernoffPy is the <strong>Chernoff product formula</strong> (Chernoff, 1968):</p>
-<div class="arithmatex">\[e^{tL} f = \lim_{n \to \infty} F\!\left(\tfrac{t}{n}\right)^n f\]</div>
-<p>where:</p>
-<ul>
-<li><span class="arithmatex">\(L\)</span> is a linear operator (the generator of a semigroup)</li>
-<li><span class="arithmatex">\(e^{tL}\)</span> is the exact solution operator (the semigroup itself)</li>
-<li><span class="arithmatex">\(F(s)\)</span> is the <strong>Chernoff function</strong> — a family of operators satisfying <span class="arithmatex">\(F(0) = I\)</span> and <span class="arithmatex">\(F'(0) = L\)</span></li>
-</ul>
-<p>In practice we compute <span class="arithmatex">\(F(t/n)^n f\)</span> for a finite <span class="arithmatex">\(n\)</span>, which approximates <span class="arithmatex">\(e^{tL} f\)</span> with error <span class="arithmatex">\(O(1/n^k)\)</span>, where <span class="arithmatex">\(k\)</span> depends on how many derivatives of <span class="arithmatex">\(F\)</span> match those of <span class="arithmatex">\(e^{tL}\)</span> at <span class="arithmatex">\(s=0\)</span>.</p>
+<h1 id="chernoffpy">Книга нового разработчика — ChernoffPy</h1>
+<blockquote>
+<p>Этот документ позволяет за 30 минут войти в проект с нуля.
+Подробности — в <code>docs/architecture.md</code> и <code>docs/</code> сайте.</p>
+</blockquote>
 <hr />
-<h2 id="connection-to-option-pricing">Connection to option pricing</h2>
-<h3 id="black-scholes-pde">Black-Scholes PDE</h3>
-<p>Under the risk-neutral measure, the value <span class="arithmatex">\(V(S, t)\)</span> of a European option satisfies:</p>
-<div class="arithmatex">\[\frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + r S \frac{\partial V}{\partial S} - r V = 0\]</div>
-<h3 id="wilmott-substitution-bs-heat-equation">Wilmott substitution (BS → heat equation)</h3>
-<p>The substitution</p>
-<div class="arithmatex">\[x = \ln(S/K), \quad \tau = \tfrac{\sigma^2}{2}(T - t), \quad V(S, t) = K e^{\alpha x + \beta \tau} u(x, \tau)\]</div>
-<p>with <span class="arithmatex">\(\alpha = -(k-1)/2\)</span>, <span class="arithmatex">\(\beta = -(k+1)^2/4\)</span>, <span class="arithmatex">\(k = 2r/\sigma^2\)</span>, transforms the BS PDE into the <strong>heat equation</strong>:</p>
-<div class="arithmatex">\[\frac{\partial u}{\partial \tau} = \frac{\partial^2 u}{\partial x^2}\]</div>
-<h3 id="chernoff-approximation">Chernoff approximation</h3>
-<p>The heat equation generator is <span class="arithmatex">\(L = \partial^2/\partial x^2\)</span>. We approximate <span class="arithmatex">\(e^{\tau L}\)</span> via:</p>
-<div class="arithmatex">\[u(\cdot, \tau) \approx F(\tau/n)^n\, u_0\]</div>
-<p>Different choices of <span class="arithmatex">\(F\)</span> give different numerical schemes:</p>
+<h2 id="1">1. Что это и зачем</h2>
+<p>ChernoffPy — Python-библиотека для ценообразования финансовых деривативов через метод
+оператор-полугрупп Чернова. Научная новизна: <strong>гарантированная верхняя граница ошибки</strong>
+(<code>CertifiedBound</code>), которая доказуемо ограничивает отклонение от точной цены.</p>
+<p>Математическая основа: теорема Галкина-Ремизова (Israel J. Math., 2025) — если схема Чернова
+<code>C(t)</code> совпадает с <code>e^{tL}</code> по <code>k</code> первым производным при <code>t=0</code>, то ошибка <code>C(t/n)^n f</code>
+убывает как <code>O(1/n^k)</code>. Скорость сходимости <strong>доказана</strong>, не просто наблюдаема численно.</p>
+<hr />
+<h2 id="2-5">2. Развернуть локально за 5 минут</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sergeeey/MarkovChains.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>MarkovChains/ChernoffPy
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Минимальная установка</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Запустить тесты</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Ожидаемый результат: 539 passed</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># С Numba-ускорением (опционально, медленная установка)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[fast,dev]&quot;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Собрать документацию локально</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>mkdocs<span class="w"> </span>serve<span class="w">          </span><span class="c1"># → http://127.0.0.1:8000</span>
+</code></pre></div>
+<hr />
+<h2 id="3-10">3. Архитектура за 10 минут</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>chernoffpy/               ← математическое ядро (ПУБЛИЧНЫЙ API)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── functions.py          ChernoffFunction ABC + 5 реализаций (BE, CN, Padé, G, S)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── semigroups.py         HeatSemigroup — точное решение для сравнения
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── certified.py          CertifiedBound, n_steps_for_tolerance
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── analysis.py           convergence_table, compute_errors
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── accel.py              thomas_solve_batch, mixed_deriv_step (+ Numba JIT)
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├── backends.py           NumPy / CuPy переключатель
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>└── finance/              ← финансовые приложения (не импортируют core обратно)
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    ├── validation.py     MarketParams, GridConfig, PricingResult (dataclasses)
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    ├── transforms.py     Wilmott substitution: BS ↔ Heat equation
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    ├── european.py       EuropeanPricer
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    ├── barrier*.py       BarrierFFTPricer, BarrierDSTPricer, double_barrier
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    ├── american.py       AmericanPricer (early exercise projection)
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    ├── heston*.py        HestonPricer, HestonFastPricer
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    ├── bates.py          BatesPricer (Heston + Merton jumps)
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    ├── local_vol.py      LocalVolPricer
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    ├── greeks.py         Delta, Gamma, Vega, Theta, Rho (finite differences)
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    ├── calibration.py    LocalVolSurface
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    └── dividends.py      DividendSchedule (absolute / proportional)
+</code></pre></div>
+<p><strong>Главный инвариант:</strong> <code>finance/</code> → <code>chernoffpy/</code>, обратно нельзя.</p>
+<p><strong>Главный поток данных</strong> (EuropeanPricer):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>MarketParams → Wilmott substitution → u0 (heat space)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>→ C(τ/n)^n u0 (n итераций Chernoff) → обратная замена → цена + CertifiedBound
+</code></pre></div>
+<hr />
+<h2 id="4">4. Ключевые решения (почему так, а не иначе)</h2>
 <table>
 <thead>
 <tr>
-<th>Chernoff function <span class="arithmatex">\(F(s)\)</span></th>
-<th>Scheme</th>
-<th>Order</th>
+<th>Решение</th>
+<th>Почему</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><span class="arithmatex">\((I - s\partial^2_x)^{-1}\)</span></td>
-<td>Backward Euler</td>
-<td>1</td>
+<td><code>ChernoffFunction</code> — ABC, не callable</td>
+<td>Нужны <code>order</code>, <code>name</code> для <code>certified.py</code>; рефлексия без dict</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\((I - \tfrac{s}{2}\partial^2_x)^{-1}(I + \tfrac{s}{2}\partial^2_x)\)</span></td>
-<td>Crank-Nicolson</td>
-<td>2</td>
+<td><code>BarrierDSTPricer</code> использует DST, не FFT</td>
+<td>FFT → периодические ГУ → эффект Гиббса у барьера</td>
 </tr>
 <tr>
-<td>Padé[1/2] rational approx.</td>
-<td>Padé-Chernoff</td>
-<td>3</td>
+<td><code>transforms.py</code> — отдельный модуль</td>
+<td>Подстановка Уилмотта — источник числовых ошибок; тестируется изолированно</td>
 </tr>
 <tr>
-<td>Padé[2/2] rational approx.</td>
-<td>Padé-Chernoff</td>
-<td>4</td>
+<td><code>CertifiedBound</code> в публичном API</td>
+<td>Главное научное преимущество перед MC и FD; нельзя скрывать</td>
 </tr>
 <tr>
-<td>Gaussian convolution kernel</td>
-<td>Physical-G</td>
-<td>1</td>
+<td>Early exercise через <code>max(u, intrinsic)</code></td>
+<td>Изменение сетки несовместимо с <code>C(t/n)^n</code> — нужно одно и то же пространство</td>
+</tr>
+</tbody>
+</table>
+<p>Полные ADR — в <code>docs/architecture.md</code>.</p>
+<hr />
+<h2 id="5">5. Известные проблемы (не трогать без понимания)</h2>
+<table>
+<thead>
+<tr>
+<th>Проблема</th>
+<th>Симптом</th>
+<th>Обходной путь</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AmericanPricer</code> call + абсолютные дивиденды</td>
+<td>Цена ~<span class="arithmatex">\(148 вместо ~\)</span>9, выбрасывает <code>UserWarning</code></td>
+<td>Использовать <code>proportional=True</code></td>
 </tr>
 <tr>
-<td>Sinc-kernel convolution</td>
-<td>Physical-S</td>
-<td>2</td>
+<td><code>PadeChernoff(m, n)</code> с <code>m &gt; n</code></td>
+<td>Не A-устойчив, расхождение на высоких частотах, <code>UserWarning</code></td>
+<td>Использовать <code>m ≤ n</code></td>
+</tr>
+<tr>
+<td>CuPy-бэкенд не работает в Finance-слое</td>
+<td><code>get_backend("cupy")</code> работает, но Heston/American используют NumPy напрямую</td>
+<td>Только NumPy в Finance</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="certified-error-bounds">Certified error bounds</h2>
-<p>The key result from <strong>Galkin &amp; Remizov (2025)</strong> is a rigorous upper bound on the approximation error:</p>
-<div class="arithmatex">\[\left\| e^{tL} f - F(t/n)^n f \right\| \leq C(f, L, F) \cdot \frac{1}{n^k}\]</div>
-<p>where the constant <span class="arithmatex">\(C\)</span> depends on the regularity of the payoff <span class="arithmatex">\(f\)</span> and the specific Chernoff function <span class="arithmatex">\(F\)</span>.</p>
-<p>ChernoffPy computes this constant numerically and returns it as the <code>certified_bound</code>, giving a <strong>provable</strong> (not just empirical) accuracy guarantee.</p>
-<hr />
-<h2 id="barrier-options-dst-vs-fft">Barrier options: DST vs FFT</h2>
-<p>For barrier options, the boundary condition <span class="arithmatex">\(V(B, t) = 0\)</span> becomes <span class="arithmatex">\(u(x_B, \tau) = 0\)</span> after the Wilmott substitution. Two approaches are used:</p>
-<p><strong>DST method (<code>BarrierDSTPricer</code>):</strong>
-Expand <span class="arithmatex">\(u\)</span> in a sine series that automatically satisfies Dirichlet BCs. No Gibbs oscillations. Slightly slower due to exact boundary enforcement.</p>
-<p><strong>FFT method (<code>BarrierPricer</code>):</strong>
-Use fast Fourier convolution with a projection step at each time step. Faster but can exhibit Gibbs artifacts near the barrier.</p>
-<hr />
-<h2 id="references">References</h2>
+<h2 id="6-cer">6. Как добавить новый приcer (пошагово)</h2>
 <ol>
-<li>
-<p><strong>Chernoff, P. R.</strong> (1968). Note on product formulas for operator semigroups. <em>Journal of Functional Analysis</em>, 2(2), 238–242.</p>
-</li>
-<li>
-<p><strong>Galkin, O. &amp; Remizov, I.</strong> (2025). Rate of convergence of Chernoff approximations for contractive Chernoff functions of the Schrödinger semigroup. <em>Israel Journal of Mathematics</em>. <a href="https://doi.org/10.1007/s11856-024-2699-7">DOI: 10.1007/s11856-024-2699-7</a></p>
-</li>
-<li>
-<p><strong>Butko, Ya. A.</strong> (2020). The method of Chernoff approximation. In <em>Semigroups of Operators – Theory and Applications</em>, Lecture Notes in Mathematics. Springer. <a href="https://arxiv.org/abs/1905.07309">arXiv:1905.07309</a></p>
-</li>
-<li>
-<p><strong>Draganova, N. &amp; Nikbakht, M.</strong> (2023). Numerical realization of Chernoff product formulas for heat equation. <a href="https://arxiv.org/abs/2301.05284">arXiv:2301.05284</a></p>
-</li>
+<li>Создать <code>chernoffpy/finance/my_pricer.py</code></li>
+<li>Принять <code>ChernoffFunction</code> как первый аргумент <code>__init__</code></li>
+<li>Использовать <code>MarketParams</code> и <code>GridConfig</code> из <code>validation.py</code></li>
+<li>Возвращать <code>PricingResult</code> или аналогичный dataclass</li>
+<li>Добавить аналитический reference в <code>finance/*_analytical.py</code> для сравнения в тестах</li>
+<li>Написать тесты в <code>tests/</code> (сравнение с аналитикой, convergence test)</li>
+<li>Добавить в <code>__init__.py</code> и <code>docs/api/finance.md</code></li>
 </ol>
+<hr />
+<h2 id="7">7. Как выпустить релиз</h2>
+<p>Полная инструкция: <a href="../release-guide/"><code>release-guide.md</code></a>.</p>
+<p>Кратко:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 1. Обновить версию в chernoffpy/__init__.py и pyproject.toml</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># 2. Обновить CHANGELOG.md</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># 3. Закоммитить</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>git<span class="w"> </span>add<span class="w"> </span>-u<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: bump version to v0.2.0&quot;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># 4. Тег → CI публикует на PyPI автоматически</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>git<span class="w"> </span>tag<span class="w"> </span>v0.2.0<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main<span class="w"> </span>--tags
+</code></pre></div></p>
+<hr />
+<h2 id="8-cicd-push">8. CI/CD: что происходит при push</h2>
+<table>
+<thead>
+<tr>
+<th>Событие</th>
+<th>Jobs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Push/PR в <code>main</code></td>
+<td><code>test</code> (8 матриц) + <code>test-numba</code></td>
+</tr>
+<tr>
+<td>Push в <code>main</code></td>
+<td>+ <code>docs</code> (деплой GitHub Pages)</td>
+</tr>
+<tr>
+<td>Push тега <code>v*.*.*</code></td>
+<td>+ <code>publish</code> (PyPI через OIDC)</td>
+</tr>
+</tbody>
+</table>
+<p>Файл: <code>.github/workflows/ci.yml</code></p>
+<hr />
+<h2 id="9">9. Структура тестов</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>tests/
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── test_functions.py       ChernoffFunction API, сходимость, порядки
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── test_semigroups.py      HeatSemigroup точность
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── test_certified.py       CertifiedBound логика
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>├── test_european.py        EuropeanPricer vs BS-exact
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>├── test_barrier*.py        барьерные типы vs аналитика
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>├── test_american.py        AmericanPricer, BAW, early exercise
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>├── test_heston*.py         Heston vs аналитическая CF
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>├── test_bates.py           Bates vs CF
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>├── test_greeks.py          греки vs finite differences
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>└── test_dividends.py       дивиденды, proportional/absolute
+</code></pre></div>
+<p>Запуск конкретной группы:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pytest<span class="w"> </span>tests/test_european.py<span class="w"> </span>-v
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;barrier&quot;</span><span class="w"> </span>-v
+</code></pre></div></p>
+<hr />
+<h2 id="10-bus-factor">10. Контакты и Bus Factor</h2>
+<table>
+<thead>
+<tr>
+<th>Роль</th>
+<th>Кто</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Автор кода</td>
+<td>Sergey (<code>@sergeeey</code> на GitHub)</td>
+</tr>
+<tr>
+<td>Математическая теория</td>
+<td>И.Д. Ремизов, О.Е. Галкин (ссылки в <code>docs/theory.md</code>)</td>
+</tr>
+<tr>
+<td>Issues / PR</td>
+<td>https://github.com/sergeeey/MarkovChains/issues</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bus factor: 1.</strong> При необходимости передачи — подготовить второго мейнтейнера через 2–3
+совместных code review + разбор <code>docs/architecture.md</code>.</p>
+<hr />
+<h2 id="_1">Карта всей документации</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ChernoffPy/
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── README.md                    Обзор, badges, быстрый старт, decision guide
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├── CONTRIBUTING.md              Стаб → docs/contributing.md (для GitHub баннера)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>├── docs/
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│   ├── index.md                 Главная MkDocs
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│   ├── getting-started.md       Установка, первые 5 примеров
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│   ├── architecture.md          Архитектура, ADR, CI/CD, ограничения, TODO
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│   ├── theory.md                Математика: формула Чернова, Уилмотт, ссылки
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│   ├── developer-guide.md       ← этот файл: онбординг за 30 минут
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│   ├── contributing.md          Как контрибьютить (setup, style, PR process)
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│   ├── release-guide.md         Как выпускать релизы
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>│   ├── changelog.md             История версий
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>│   ├── user-guide/
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>│   │   ├── choosing-pricer.md   Decision guide (когда что использовать)
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>│   │   ├── european.md
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>│   │   ├── barriers.md
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>│   │   ├── american.md
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>│   │   ├── heston-bates.md
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>│   │   └── certified-bounds.md
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>│   └── api/
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>│       ├── functions.md         API ref: core (mkdocstrings)
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>│       ├── finance.md           API ref: pricers (mkdocstrings)
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>│       └── certified.md        API ref: bounds (mkdocstrings)
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>└── examples/
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>    ├── american_with_dividends.py
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>    └── heston_calibration.py
+</code></pre></div>
 
 
 

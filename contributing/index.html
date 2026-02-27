@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://sergeeey.github.io/MarkovChains/user-guide/european/">
+        <link rel="canonical" href="https://sergeeey.github.io/MarkovChains/contributing/">
       
       
-        <link rel="prev" href="../choosing-pricer/">
+        <link rel="prev" href="../developer-guide/">
       
       
-        <link rel="next" href="../barriers/">
+        <link rel="next" href="../release-guide/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
-        <title>European Options - ChernoffPy</title>
+        <title>Contributing - ChernoffPy</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#european-options" class="md-skip">
+        <a href="#contributing-to-chernoffpy" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ChernoffPy" class="md-header__button md-logo" aria-label="ChernoffPy" data-md-component="logo">
+    <a href=".." title="ChernoffPy" class="md-header__button md-logo" aria-label="ChernoffPy" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              European Options
+              Contributing
             
           </span>
         </div>
@@ -227,7 +227,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         
   
   
@@ -246,7 +246,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../getting-started/" class="md-tabs__link">
+      <a href="../getting-started/" class="md-tabs__link">
         
   
   
@@ -263,13 +263,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../choosing-pricer/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../user-guide/choosing-pricer/" class="md-tabs__link">
           
   
   
@@ -289,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../api/functions/" class="md-tabs__link">
+        <a href="../api/functions/" class="md-tabs__link">
           
   
   
@@ -307,7 +305,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../theory/" class="md-tabs__link">
+      <a href="../theory/" class="md-tabs__link">
         
   
   
@@ -326,7 +324,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../architecture/" class="md-tabs__link">
+      <a href="../architecture/" class="md-tabs__link">
         
   
   
@@ -343,11 +341,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../developer-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../developer-guide/" class="md-tabs__link">
           
   
   
@@ -381,7 +381,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ChernoffPy" class="md-nav__button md-logo" aria-label="ChernoffPy" data-md-component="logo">
+    <a href=".." title="ChernoffPy" class="md-nav__button md-logo" aria-label="ChernoffPy" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -411,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -438,7 +438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         
   
   
@@ -462,31 +462,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -504,7 +499,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -522,7 +517,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../choosing-pricer/" class="md-nav__link">
+      <a href="../user-guide/choosing-pricer/" class="md-nav__link">
         
   
   
@@ -547,37 +542,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    European Options
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../user-guide/european/" class="md-nav__link">
         
   
   
@@ -593,70 +561,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#basic-pricing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic pricing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#greeks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Greeks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#certified-error-bound" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Certified error bound
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comparing-schemes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparing schemes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -669,7 +573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../barriers/" class="md-nav__link">
+      <a href="../user-guide/barriers/" class="md-nav__link">
         
   
   
@@ -697,7 +601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../american/" class="md-nav__link">
+      <a href="../user-guide/american/" class="md-nav__link">
         
   
   
@@ -725,7 +629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../heston-bates/" class="md-nav__link">
+      <a href="../user-guide/heston-bates/" class="md-nav__link">
         
   
   
@@ -753,7 +657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../certified-bounds/" class="md-nav__link">
+      <a href="../user-guide/certified-bounds/" class="md-nav__link">
         
   
   
@@ -840,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/functions/" class="md-nav__link">
+      <a href="../api/functions/" class="md-nav__link">
         
   
   
@@ -868,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/finance/" class="md-nav__link">
+      <a href="../api/finance/" class="md-nav__link">
         
   
   
@@ -896,7 +800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/certified/" class="md-nav__link">
+      <a href="../api/certified/" class="md-nav__link">
         
   
   
@@ -931,7 +835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../theory/" class="md-nav__link">
+      <a href="../theory/" class="md-nav__link">
         
   
   
@@ -958,7 +862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -982,26 +886,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   
@@ -1019,7 +928,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1037,7 +946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developer-guide/" class="md-nav__link">
+      <a href="../developer-guide/" class="md-nav__link">
         
   
   
@@ -1062,10 +971,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../contributing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1081,6 +1017,114 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting Up the Development Environment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Style
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commit-message-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commit Message Convention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-a-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Submitting a Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathematical-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Contributions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reporting-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reporting Issues
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1093,7 +1137,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../release-guide/" class="md-nav__link">
+      <a href="../release-guide/" class="md-nav__link">
         
   
   
@@ -1121,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         
   
   
@@ -1176,10 +1220,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#basic-pricing" class="md-nav__link">
+  <a href="#setting-up-the-development-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic pricing
+        Setting Up the Development Environment
       
     </span>
   </a>
@@ -1187,10 +1231,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#greeks" class="md-nav__link">
+  <a href="#running-tests" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Greeks
+        Running Tests
       
     </span>
   </a>
@@ -1198,10 +1242,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#certified-error-bound" class="md-nav__link">
+  <a href="#code-style" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Certified error bound
+        Code Style
       
     </span>
   </a>
@@ -1209,10 +1253,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#comparing-schemes" class="md-nav__link">
+  <a href="#commit-message-convention" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Comparing schemes
+        Commit Message Convention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-a-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Submitting a Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathematical-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Contributions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reporting-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reporting Issues
       
     </span>
   </a>
@@ -1239,57 +1327,93 @@
   
 
 
-<h1 id="european-options">European Options</h1>
-<h2 id="basic-pricing">Basic pricing</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">chernoffpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">CrankNicolson</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">chernoffpy.finance</span><span class="w"> </span><span class="kn">import</span> <span class="n">EuropeanPricer</span><span class="p">,</span> <span class="n">MarketParams</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">market</span> <span class="o">=</span> <span class="n">MarketParams</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">pricer</span> <span class="o">=</span> <span class="n">EuropeanPricer</span><span class="p">(</span><span class="n">CrankNicolson</span><span class="p">())</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">call</span> <span class="o">=</span> <span class="n">pricer</span><span class="o">.</span><span class="n">price</span><span class="p">(</span><span class="n">market</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">option_type</span><span class="o">=</span><span class="s2">&quot;call&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">put</span>  <span class="o">=</span> <span class="n">pricer</span><span class="o">.</span><span class="n">price</span><span class="p">(</span><span class="n">market</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">option_type</span><span class="o">=</span><span class="s2">&quot;put&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Call: </span><span class="si">{</span><span class="n">call</span><span class="o">.</span><span class="n">price</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   <span class="c1"># ~10.4506</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Put:  </span><span class="si">{</span><span class="n">put</span><span class="o">.</span><span class="n">price</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="c1"># ~5.5735  (put-call parity holds)</span>
+<h1 id="contributing-to-chernoffpy">Contributing to ChernoffPy</h1>
+<p>Thank you for your interest in contributing! This guide covers everything you need to get started.</p>
+<h2 id="setting-up-the-development-environment">Setting Up the Development Environment</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sergeeey/MarkovChains.git
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>MarkovChains/ChernoffPy
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
 </code></pre></div>
-<h2 id="greeks">Greeks</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">chernoffpy.finance</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_greeks</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">greeks</span> <span class="o">=</span> <span class="n">compute_greeks</span><span class="p">(</span><span class="n">pricer</span><span class="p">,</span> <span class="n">market</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">option_type</span><span class="o">=</span><span class="s2">&quot;call&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Delta: </span><span class="si">{</span><span class="n">greeks</span><span class="o">.</span><span class="n">delta</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   <span class="c1"># ~0.6368</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gamma: </span><span class="si">{</span><span class="n">greeks</span><span class="o">.</span><span class="n">gamma</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   <span class="c1"># ~0.0188</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vega:  </span><span class="si">{</span><span class="n">greeks</span><span class="o">.</span><span class="n">vega</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="c1"># ~37.52</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Theta: </span><span class="si">{</span><span class="n">greeks</span><span class="o">.</span><span class="n">theta</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   <span class="c1"># ~-6.41 (per year)</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rho:   </span><span class="si">{</span><span class="n">greeks</span><span class="o">.</span><span class="n">rho</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>     <span class="c1"># ~53.23</span>
+<p>For optional acceleration:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[fast]&quot;</span><span class="w">   </span><span class="c1"># Numba JIT</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[gpu]&quot;</span><span class="w">    </span><span class="c1"># CuPy GPU support</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[all]&quot;</span><span class="w">    </span><span class="c1"># Everything</span>
+</code></pre></div></p>
+<h2 id="running-tests">Running Tests</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># All tests</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-q
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># With coverage report</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>--cov<span class="o">=</span>chernoffpy<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Specific module</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>pytest<span class="w"> </span>tests/finance/<span class="w"> </span>-q
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>pytest<span class="w"> </span>tests/test_functions.py<span class="w"> </span>-q
 </code></pre></div>
-<h2 id="certified-error-bound">Certified error bound</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">chernoffpy.finance</span><span class="w"> </span><span class="kn">import</span> <span class="n">CertifiedEuropeanPricer</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">cert_pricer</span> <span class="o">=</span> <span class="n">CertifiedEuropeanPricer</span><span class="p">(</span><span class="n">CrankNicolson</span><span class="p">())</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">res</span> <span class="o">=</span> <span class="n">cert_pricer</span><span class="o">.</span><span class="n">price_certified</span><span class="p">(</span><span class="n">market</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">option_type</span><span class="o">=</span><span class="s2">&quot;call&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Price:   </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">price</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bound: ±</span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">certified_bound</span><span class="o">.</span><span class="n">bound</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<p>Coverage must stay ≥ 80% — the CI will fail otherwise.</p>
+<h2 id="code-style">Code Style</h2>
+<ul>
+<li><strong>Formatter:</strong> <a href="https://black.readthedocs.io/">Black</a> with 100-char line length</li>
+<li><strong>Type hints:</strong> required on all public functions and methods</li>
+<li><strong>Docstrings:</strong> NumPy-style for public API, with <code>Parameters</code>, <code>Returns</code>, and <code>Examples</code> sections</li>
+<li><strong>No <code>print()</code>:</strong> use <code>structlog</code> or <code>logging</code> for any diagnostic output</li>
+</ul>
+<p>Format before committing:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>black<span class="w"> </span>chernoffpy/<span class="w"> </span>tests/<span class="w"> </span>--line-length<span class="w"> </span><span class="m">100</span>
+</code></pre></div></p>
+<h2 id="commit-message-convention">Commit Message Convention</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>feat: add double-barrier DST pricer
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>fix: overflow in bs_to_heat_initial for large alpha
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>docs: add decision guide to README
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>test: cover AmericanPricer with non-zero dividends
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>refactor: extract grid snapping to adaptive_grid module
 </code></pre></div>
-<p>The <code>bound</code> is a <strong>mathematically guaranteed</strong> upper limit on <code>|price_true - price_computed|</code>.</p>
-<h2 id="comparing-schemes">Comparing schemes</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">chernoffpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">BackwardEuler</span><span class="p">,</span> <span class="n">CrankNicolson</span><span class="p">,</span> <span class="n">PadeChernoff</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">chernoffpy.finance</span><span class="w"> </span><span class="kn">import</span> <span class="n">EuropeanPricer</span><span class="p">,</span> <span class="n">MarketParams</span><span class="p">,</span> <span class="n">bs_exact_price</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">market</span> <span class="o">=</span> <span class="n">MarketParams</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">exact</span> <span class="o">=</span> <span class="n">bs_exact_price</span><span class="p">(</span><span class="n">market</span><span class="p">,</span> <span class="s2">&quot;call&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">for</span> <span class="n">scheme</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="p">(</span><span class="n">BackwardEuler</span><span class="p">(),</span> <span class="s2">&quot;BackwardEuler O(1/n)&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="p">(</span><span class="n">CrankNicolson</span><span class="p">(),</span> <span class="s2">&quot;CrankNicolson O(1/n²)&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="p">(</span><span class="n">PadeChernoff</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;Padé[1/2]   O(1/n³)&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">]:</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">EuropeanPricer</span><span class="p">(</span><span class="n">scheme</span><span class="p">)</span><span class="o">.</span><span class="n">price</span><span class="p">(</span><span class="n">market</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">err</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">price</span> <span class="o">-</span> <span class="n">exact</span><span class="p">)</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">30s</span><span class="si">}</span><span class="s2">  price=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">price</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">  err=</span><span class="si">{</span><span class="n">err</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<h2 id="submitting-a-pull-request">Submitting a Pull Request</h2>
+<ol>
+<li>Fork the repository and create a feature branch from <code>main</code>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/your-feature-name
+</code></pre></div></li>
+<li>Write your code with type hints and docstrings.</li>
+<li>Add tests covering the new behaviour. Aim for edge cases, not just happy paths.</li>
+<li>Run the full test suite locally to confirm nothing is broken.</li>
+<li>Open a PR with a clear description of:</li>
+<li><strong>What</strong> the change does</li>
+<li><strong>Why</strong> it is needed</li>
+<li><strong>How</strong> it was tested</li>
+</ol>
+<h2 id="mathematical-contributions">Mathematical Contributions</h2>
+<p>ChernoffPy is grounded in the theory of Chernoff operator semigroups (Galkin &amp; Remizov, 2025).
+If you are adding a new pricing model or Chernoff function:</p>
+<ul>
+<li>Include a reference to the relevant paper or textbook</li>
+<li>Add a convergence test that verifies the expected order <code>O(1/n^k)</code></li>
+<li>Compare against an analytical benchmark where one exists</li>
+</ul>
+<h2 id="project-structure">Project Structure</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>chernoffpy/
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── functions.py      # Chernoff function implementations (abstract base + 5 schemes)
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├── semigroups.py     # Exact heat semigroup solutions (for validation)
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>├── analysis.py       # Convergence analysis utilities
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>├── backends.py       # NumPy / CuPy abstraction
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>├── accel.py          # Numba JIT kernels
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>├── certified.py      # Certified upper error bounds
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>└── finance/          # Option pricing layer (builds on core)
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    ├── validation.py # Dataclasses (MarketParams, GridConfig, ...)
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    ├── transforms.py # Black-Scholes ↔ heat equation transforms
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    ├── european.py   # EuropeanPricer
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    ├── barrier*.py   # Barrier pricers (FFT and DST)
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    ├── american*.py  # American pricer
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    ├── heston*.py    # Heston and fast Heston
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    ├── bates*.py     # Bates jump-diffusion
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    └── ...
 </code></pre></div>
+<p><strong>Dependency rule:</strong> <code>finance/</code> may depend on core (<code>functions.py</code>, <code>semigroups.py</code>). Core must never import from <code>finance/</code>.</p>
+<h2 id="reporting-issues">Reporting Issues</h2>
+<p>Please open a GitHub issue with:
+- ChernoffPy version (<code>python -c "import chernoffpy; print(chernoffpy.__version__)"</code>)
+- Python version and OS
+- Minimal reproducible example
+- Expected vs actual result (with numbers)</p>
 
 
 
@@ -1361,10 +1485,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
