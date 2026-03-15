@@ -78,9 +78,6 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-    environment:
-      name: pypi
-      url: https://pypi.org/p/chernoffpy
     permissions:
       id-token: write  # OIDC Trusted Publisher — секрет PyPI не нужен
     steps:
