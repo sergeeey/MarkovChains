@@ -1,6 +1,18 @@
 # Changelog
 
-## [0.1.0] - 2026-02-16
+## [0.1.0] - 2026-03-15
+
+### Released
+
+- First public release on [PyPI](https://pypi.org/project/chernoffpy/)
+- Documentation deployed to [GitHub Pages](https://sergeeey.github.io/MarkovChains/)
+
+### Cleanup
+
+- Removed internal development files (audit scripts, agent configs)
+- Fixed CI publish job (OIDC Trusted Publisher environment mismatch)
+
+### Initial Features (2026-02-16)
 
 ### Added
 
